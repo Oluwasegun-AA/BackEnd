@@ -1,0 +1,49 @@
+{
+  "name": "BackEnd",
+  "version": "1.0.0",
+  "description": "BackEnd",
+  "main": "index.js",
+  "keywords": [
+    "API",
+    "BackEnd"
+  ],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "eslint src/**/*.js --fix",
+    "test:pre-commit": "CI=true react-scripts test --colors -u --coverage",
+    "contributors:init": "all-contributors init",
+    "contributors:add": "npx all-contributors add",
+    "contributors:generate": "npx all-contributors generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oluwasegun-AA/BackEnd.git"
+  },
+  "homepage": "https://github.com/Oluwasegun-AA/BackEnd#readme",
+  "bugs": {
+    "url": "https://github.com/Oluwasegun-AA/BackEnd/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "3.0.4",
+    "lint-staged": "9.2.3",
+    "prettier": "1.18.2",
+    "rimraf": "2.6.3",
+    "standard-version": "7.0.0",
+    "all-contributors-cli": "6.1.2"
+  }
+}
