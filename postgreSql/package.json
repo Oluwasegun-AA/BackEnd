@@ -1,0 +1,42 @@
+{
+  "name": "postgreSql",
+  "version": "1.0.0",
+  "description": "postgreSql",
+  "main": "index.js",
+  "keywords": [
+    "postgreSql",
+    "API"
+  ],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn clear && babel ./src/client/views ./src/client/assets ./src/client/styles -d public/client --copy-files",
+    "clear": "rimraf public",
+    "lint": "eslint ./ --fix",
+    "pretty": "./node_modules/.bin/prettier --single-quote --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "contributors:init": "all-contributors init",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.4.5",
+    "dotenv": "8.1.0",
+    "express": "4.17.1",
+    "lodash": "4.17.15"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/plugin-transform-runtime": "7.4.4",
+    "@babel/preset-env": "7.4.5",
+    "all-contributors-cli": "6.1.2",
+    "eslint": "5.3.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.18.0",
+    "prettier": "1.18.2",
+    "rimraf": "2.6.3",
+    "standard-version": "7.0.0"
+  }
+}
