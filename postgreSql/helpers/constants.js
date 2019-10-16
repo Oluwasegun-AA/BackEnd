@@ -1,50 +1,31 @@
 const statusCodes = {
-  success: {
-    code: 200,
-    message: (action) => `${action} successfully`
-  },
-  created: {
-    code: 201,
-    message: (action) => `${item} created successfully`
-  },
-  noContent: {
-    code: 204,
-    message: (action) => 'No content'
-  },
-  badRequest: {
-    code: 400,
-    message: (message) => `Bad request, ${message}`
-  },
-  unauthorized: {
-    code: 401,
-    message: (action) => `Access unauthorized, ${action}`
-  },
-  forbidden: {
-    code: 403,
-    message: 'forbidden route'
-  },
-  notFound: {
-    code: 404,
-    message: (item) => `${item} Not found`
-  },
-  notFound: {
-    code: 405,
-    message: 'Method not allowed'
-  },
-  conflict: {
-    code: 409,
-    message: (message) => `Conflict, ${message}`
-  },
-  serverError: {
-    code: 500,
-    message: (action) => 'internal server error'
-  },
-  unavailable: {
-    code: 503,
-    message: (action) => `${action} not available`
-  }
+  success: 200,
+  created: 201,
+  noContent: 204,
+  badRequest: 400,
+  unauthorized: 401,
+  forbidden: 403,
+  notFound: 404,
+  notFound: 405,
+  conflict: 409,
+  serverError: 500,
+  unavailable: 503,
 };
 
-export {
-  statusCodes
+const statusMessages = {
+  home: 'Welcome to the web API version 1, you may visit the documentation at /api/v1/docs',
+  routeNotFound: ({ originalUrl, method }) => `Endpoint ${method} ${originalUrl} does not exist. Please, read the docs via api/v1/docs`,
+  success: action => `${action} successfully`,
+  created: action => `${item} created successfully`,
+  noContent: action => 'No content',
+  badRequest: message => `Bad request, ${message}`,
+  unauthorized: action => `Access unauthorized, ${action}`,
+  forbidden: 'forbidden route',
+  notFound: item => `${item} Not found`,
+  notFound: 'Method not allowed',
+  conflict: message => `Conflict, ${message}`,
+  serverError: action => 'internal server error',
+  unavailable: action => `${action} not available`,
 };
+
+export { statusCodes, statusMessages };

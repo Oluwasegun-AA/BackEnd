@@ -1,12 +1,14 @@
 import express from 'express';
 
 import { catchAllError } from '../helpers';
+import Auth from '../controllers/authController';
 
 const auth = express.Router();
+const { login, signup } = Auth;
 
-auth.post('/login', (req, res) => res.status(200).json({ message: 'login' }));
+auth.get('/login', login);
 
-auth.post('/signup', (req, res) => res.status(200).json({ message: 'signup' }));
+auth.post('/signup', signup);
 
 catchAllError(auth);
 
