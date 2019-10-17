@@ -1,22 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
 
 import router from '../routes';
-import { connectionMessage } from '../helpers';
-import { catchAllError }  from '../helpers';
+import { catchAllError, connectionMessage } from '../helpers';
+import serverMiddleWares from '../middlewares/serverMiddlewares';
 
 dotenv.config();
 const app = express();
 const { PORT } = process.env;
 
-app.use(logger('common'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+serverMiddleWares(app);
 
 app.use('/api/v1', router);
 
-catchAllError(app)
+catchAllError(app);
 
 app.listen(PORT, connectionMessage(PORT));
