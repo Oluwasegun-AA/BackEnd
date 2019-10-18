@@ -1,15 +1,23 @@
-import query from '../db/dbSetup';
+import {
+  findUser,
+  findAllUsers,
+  findAllAdmins,
+  postUser
+} from './authModels';
+import {
+  findArticle,
+  findAllArticles,
+  findAllArticlesByUser,
+} from './articleModels';
+import findFeeds from './feedsModels';
 
-class Request {
- static indAll (table) {
-  const queryText = `select * from ${table}`;
-  return query(queryText);
+export default {
+  findUser,
+  findAllUsers,
+  findAllAdmins,
+  findArticle,
+  findAllArticles,
+  findAllArticlesByUser,
+  findFeeds,
+  postUser,
 };
-
- static findOne (table, item, value) {
-  const queryText = `select * from ${table} where ${item} = ${value}`;
-  return query(queryText);
-};
-}
-
-export const

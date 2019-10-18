@@ -12,7 +12,8 @@
   "scripts": {
     "start": "nodemon dist/server/app.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "yarn clear && babel ./ -d dist --ignore node_modules && node dist/db/dbSeed.js",
+    "build": "yarn clear && babel ./ -d dist --ignore node_modules",
+    "seed": "node dist/db/dbSeed.js",
     "clear": "rimraf dist",
     "lint": "eslint ./ --fix",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",

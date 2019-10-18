@@ -24,7 +24,7 @@ const statusMessages = {
   notFound: item => `${item} Not found`,
   notAllowed: 'Method not allowed',
   conflict: message => `Conflict, ${message}`,
-  serverError: () => 'internal server error',
+  serverErrorMessage: () => 'internal server error',
   unavailable: action => `${action} not available`,
 };
 

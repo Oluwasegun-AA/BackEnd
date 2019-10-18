@@ -1,5 +1,9 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+import { ResponseHandler, statusCodes, statusMessages } from '../helpers';
+
+const { serverError } = statusCodes;
+const { serverErrorMessage } = statusMessages;
 
 dotenv.config();
 
@@ -7,17 +11,17 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-const query = async queryObj =>
+const query = async (queryObj, res) =>
   pool.connect((err, client, release) => {
     if (err) {
-      return process.stdout.write('Error acquiring client', `${err.stack}\n`);
+      return ResponseHandler.error(res, serverError, serverErrorMessage);
     }
     client.query(queryObj, (err, response) => {
       release();
       if (err) {
-        return process.stdout.write('Error executing query', `${err.stack}\n`);
+        return ResponseHandler.error(res, serverError, err);
       }
-      return response.rows;
+      return response;
     });
   });
 

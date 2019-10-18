@@ -3,6 +3,7 @@ import { statusCodes, statusMessages } from './constants';
 import ResponseHandler from './ResponseHandler';
 import Jwt from './Jwt';
 import Password from './passwordModem';
+import extractValues from './extractValues';
 
 export {
   log,
@@ -12,5 +13,6 @@ export {
   catchAllError,
   ResponseHandler,
   Jwt,
-  Password
+  Password,
+  extractValues,
 };
