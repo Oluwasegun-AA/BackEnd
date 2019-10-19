@@ -2,7 +2,7 @@ import { ResponseHandler } from '../helpers';
 
 class Articles {
   static async get(req, res) {
-    return ResponseHandler.success(res, 200, 'get articles').success();
+    return ResponseHandler.success(res, 200, 'get articles');
   }
 
   static async post(req, res) {
