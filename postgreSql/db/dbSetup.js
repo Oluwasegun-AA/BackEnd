@@ -11,18 +11,18 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-const query = async (queryObj, res) =>
-  pool.connect((err, client, release) => {
-    if (err) {
-      return ResponseHandler.error(res, serverError, serverErrorMessage);
-    }
-    client.query(queryObj, (err, response) => {
-      release();
-      if (err) {
-        return ResponseHandler.error(res, serverError, err);
-      }
-      return response;
-    });
-  });
+pool.on('error', err => {
+  process.stdout.write('Unexpected error on idle client', `${err}\n`);
+});
+
+const query = async (queryObj, res) => {
+  const client = await pool.connect();
+  try {
+    const response = await client.query(queryObj);
+    return response.rows[0];
+  } catch (err) {
+    return ResponseHandler.error(res, serverError, serverErrorMessage());
+  }
+};
 
 export default query;

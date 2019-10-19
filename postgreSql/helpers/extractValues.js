@@ -11,7 +11,7 @@ class extractValues {
       password
     } = req.body;
     return {
-      id: `'${uuid()}'`,
+      id: `${uuid()}`,
       firstName,
       lastName,
       username,

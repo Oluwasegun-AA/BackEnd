@@ -1,5 +1,9 @@
-import { ResponseHandler } from '../helpers';
+import { pick } from 'lodash';
 import db from '../models';
+import { ResponseHandler, statusMessages, Jwt } from '../helpers';
+
+const { success } = statusMessages;
+const { encrypt } = Jwt;
 
 class Auth {
   static async login(req, res) {
@@ -10,8 +14,11 @@ class Auth {
 
   static async signup(req, res) {
     const data = await db.postUser(req, res);
-    console.log('ddd', data);
-    // return ResponseHandler.success(res, 200, data);
+    if (data) {
+      return ResponseHandler.success(res, 200, success('User Created'), {
+        token: encrypt(pick(data, ['id', 'email'])),
+      });
+    }
   }
 }
 

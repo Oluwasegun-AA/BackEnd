@@ -22,4 +22,9 @@ const findAllAdmins = async (req, res) => {
   return resp;
 };
 
-export { findUser, findAllUsers, findAllAdmins, postUser };
+export {
+  findUser,
+  findAllUsers,
+  findAllAdmins,
+  postUser
+};

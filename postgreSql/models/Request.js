@@ -1,12 +1,14 @@
 import query from '../db/dbSetup';
 
-const arrangeValues = item =>
-  `(${item.reduce((ac, c) => {
+const arrangeValues = (item, replaceQuotes) => {
+  const value = `(${item.reduce((ac, c) => {
     if (ac) {
       return `${ac}","${c}`;
     }
     return `"${c}`;
   }, undefined)}")`;
+  return replaceQuotes ? value.replace(/"/g, "'") : value;
+};
 
 class Request {
   static async findAll(res, table, whereText) {
@@ -23,8 +25,7 @@ class Request {
   }
 
   static async post(req, res, table, values) {
-    const queryText = `INSERT INTO "${table}" ${arrangeValues(Object.keys(values))} VALUES ${arrangeValues(Object.values(values))} returning *;`;
-    console.log('this', queryText);
+    const queryText = `INSERT INTO "${table}" ${arrangeValues(Object.keys(values))} VALUES ${arrangeValues(Object.values(values), 'singleQuote')} returning *;`;
     const resp = await query(queryText, res);
     return resp;
   }
