@@ -1,8 +1,8 @@
 <h1 align="center">Welcome to BackEnd  👋</h1>
 
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+<p align="center">
   <a href="https://codeclimate.com/github/Oluwasegun-AA/BackEnd/maintainability"><img src="https://api.codeclimate.com/v1/badges/971406d82765f8f4da1d/maintainability" /></a>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
 ## Table of Contents
