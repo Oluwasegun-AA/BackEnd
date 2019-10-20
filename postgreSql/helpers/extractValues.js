@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import { pick } from 'lodash';
 import Password from './passwordModem';
 
 class extractValues {
@@ -22,11 +23,7 @@ class extractValues {
   }
 
   static userLogin(req) {
-    const { email, password } = req.body;
-    return {
-      email,
-      password: `${Password.encrypt(password)}`,
-    };
+    return pick(this.userSignup(req), ['email', 'password']);
   }
 }
 

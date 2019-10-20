@@ -1,24 +1,27 @@
 import { pick } from 'lodash';
 import db from '../models';
-import { ResponseHandler, statusMessages, Jwt } from '../helpers';
+import {
+  ResponseHandler,
+  statusMessages,
+  statusCodes,
+  Jwt
+} from '../helpers';
 
-const { success } = statusMessages;
+const { success, created } = statusMessages;
 const { encrypt } = Jwt;
 
 class Auth {
   static async login(req, res) {
-    const data = await db.findUser(req, res);
-    if (data) ResponseHandler.success(res, 200, data);
-    if (!data) ResponseHandler.error(res, 404, 'login Unsuccessful');
+    return ResponseHandler.success(res, statusCodes.success, success('User Login Successful'), {
+      token: encrypt(pick(res.data, ['id', 'email', 'role'])),
+    });
   }
 
   static async signup(req, res) {
     const data = await db.postUser(req, res);
-    if (data) {
-      return ResponseHandler.success(res, 200, success('User Created'), {
-        token: encrypt(pick(data, ['id', 'email'])),
-      });
-    }
+    return ResponseHandler.success(res, statusCodes.created, created('User '), {
+      token: encrypt(pick(data, ['id', 'email'])),
+    });
   }
 }
 

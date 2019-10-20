@@ -1,19 +1,56 @@
+import uuid from 'uuid/v4';
 import request from './Request';
 
-const findArticle = async req => {
-  const res = await request.findOne(req, '"Articles"', 'id');
-  return res;
+const findArticle = async (req, res) => {
+  const resp = await request.findOne(req, res, 'Articles', 'slug');
+  return resp;
 };
 
-const findAllArticles = async () => {
-  const res = await request.findAll('"Articles"');
-  return res;
+const findAllArticles = async (req, res) => {
+  const resp = await request.findAll(res, 'Articles', '');
+  return resp;
 };
 
-const findAllArticlesByUser = async (req) => {
+const findAllArticlesByUser = async req => {
   const id = req.body;
-  const res = await request.findAll('"Articles"', `where "authorId"=${id};`);
-  return res;
+  const resp = await request.findAll('Articles', `where "authorId"=${id};`);
+  return resp;
 };
 
-export { findArticle, findAllArticles, findAllArticlesByUser };
+const postArticle = async (req, res) => {
+  const { body } = req;
+  const data = { ...body, id: uuid() };
+  const resp = await request.post(req, res, 'Articles', data);
+  return resp;
+};
+
+const updateArticle = async (req, res) => {
+  const { slug } = req.params;
+  const resp = await request.update(
+    req,
+    res,
+    'Articles',
+    `WHERE "slug"='${slug}'`
+  );
+  return resp;
+};
+
+const deleteArticle = async (req, res) => {
+  const { slug } = req.params;
+  const resp = await request.delete(
+    req,
+    res,
+    'Articles',
+    `WHERE "slug"='${slug}'`
+  );
+  return resp;
+};
+
+export {
+  postArticle,
+  findArticle,
+  deleteArticle,
+  updateArticle,
+  findAllArticles,
+  findAllArticlesByUser,
+};
