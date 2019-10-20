@@ -1,10 +1,8 @@
 <h1 align="center">Welcome to BackEnd  👋</h1>
-<a href="https://codeclimate.com/github/Oluwasegun-AA/BackEnd/maintainability"><img src="https://api.codeclimate.com/v1/badges/971406d82765f8f4da1d/maintainability" /></a>
+
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/oluwasegun_aa" target="_blank">
-    <img alt="Twitter: oluwasegun_aa" src="https://img.shields.io/twitter/follow/oluwasegun_aa.svg?style=social" />
-  </a>
+  <a href="https://codeclimate.com/github/Oluwasegun-AA/BackEnd/maintainability"><img src="https://api.codeclimate.com/v1/badges/971406d82765f8f4da1d/maintainability" /></a>
 </p>
 
 ## Table of Contents
