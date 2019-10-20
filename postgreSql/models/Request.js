@@ -18,37 +18,43 @@ class Request {
   }
 
   static async findOne(req, res, table, column) {
-    const value = req.body[`${column}`];
-    const queryText = `SELECT * FROM "${table}" WHERE ${column}=${value};`;
+    const value = req.params[column] || req.body[column];
+    const queryText = `SELECT * FROM "${table}" WHERE "${column}"='${value}';`;
     const resp = await query(queryText, res);
-    return resp;
+    return resp[0];
   }
 
   static async post(req, res, table, values) {
-    const queryText = `INSERT INTO "${table}" ${arrangeValues(Object.keys(values))} VALUES ${arrangeValues(Object.values(values), 'singleQuote')} returning *;`;
+    const queryText = `INSERT INTO "${table}" ${arrangeValues(
+      Object.keys(values)
+    )} VALUES ${arrangeValues(
+      Object.values(values),
+      'singleQuote'
+    )} returning *;`;
     const resp = await query(queryText, res);
-    return resp;
+    return resp[0];
   }
 
-  // static async update(req, res, table) {
-  //   const body = req;
-  //   let update = '';
-  //   Object.keys(body).foreEach(item => (update += `"${item}"=${body.item}, `));
-  //   const queryText = `UPDATE "${table}" SET ${update}returning *;`;
-  //   const resp = await query(res, queryText);
-  //   return resp;
-  // }
+  static async update(req, res, table, whereText) {
+    const { body } = req;
+    const data = { ...body, updatedAt: new Date().toISOString() };
+    let update = '';
+    Object.keys(data).forEach(
+      item => (update += `"${item}"='${data[item]}',`)
+    );
+    const queryText = `UPDATE "${table}" SET ${update.replace(
+      /,$/,
+      ''
+    )} ${whereText} returning *;`;
+    const resp = await query(queryText, res);
+    return resp[0];
+  }
 
-  // static async delete(req, res, table) {
-  //   const body = req;
-  //   const queryText = `DELETE FROM "${table}" WHERE ${Object.keys(
-  //     body
-  //   )}=$1${Object.values(table)} (${Object.keys(body)}) VALUES (${Object.values(
-  //     body
-  //   )}) returning *;`;
-  //   const resp = await query(res, queryText);
-  //   return resp;
-  // }
+  static async delete(req, res, table, whereText) {
+    const queryText = `DELETE FROM "${table}" ${whereText} returning *;`;
+    const resp = await query(queryText, res);
+    return resp[0];
+  }
 }
 
 export default Request;

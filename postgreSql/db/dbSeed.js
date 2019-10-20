@@ -21,11 +21,11 @@ const seedDb = async () => {
       );`;
   const articles = `CREATE TABLE IF NOT EXISTS "Articles"(
         id uuid PRIMARY KEY NOT NULL UNIQUE,
-        slug varchar(255) NOT NULL UNIQUE,
+        slug varchar(50) NOT NULL UNIQUE,
         description varchar(255) NOT NULL,
         body varchar(255) NOT NULL,
-        "tagId" uuid NOT NULL UNIQUE,
-        "authorId" uuid NOT NULL UNIQUE ,
+        "tagId" uuid NOT NULL,
+        "authorId" uuid NOT NULL,
         "createdAt" TIMESTAMP DEFAULT NOW(),
         "updatedAt" TIMESTAMP DEFAULT NULL
       );`;
@@ -39,8 +39,8 @@ const seedDb = async () => {
   const comments = `CREATE TABLE IF NOT EXISTS "Comments"(
       id uuid PRIMARY KEY NOT NULL UNIQUE,
       body varchar(255) NOT NULL,
-      "authorId" uuid NOT NULL UNIQUE,
-      "articleId" uuid NOT NULL UNIQUE,
+      "authorId" uuid NOT NULL,
+      "articleId" uuid NOT NULL,
       "createdAt" TIMESTAMP DEFAULT NOW(),
       "updatedAt" TIMESTAMP DEFAULT NULL
       );`;

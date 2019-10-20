@@ -5,7 +5,10 @@ import {
   postUser
 } from './authModels';
 import {
+  postArticle,
   findArticle,
+  updateArticle,
+  deleteArticle,
   findAllArticles,
   findAllArticlesByUser,
 } from './articleModels';
@@ -20,4 +23,7 @@ export default {
   findAllArticlesByUser,
   findFeeds,
   postUser,
+  postArticle,
+  updateArticle,
+  deleteArticle
 };

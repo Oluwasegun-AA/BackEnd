@@ -27,7 +27,10 @@ const slugify = str => {
 
   str = String(str)
     .toLowerCase()
-    .replace(regex, char => replacement.charAt(specialCharacters.indexOf(char)) || '-');
+    .replace(
+      regex,
+      char => replacement.charAt(specialCharacters.indexOf(char)) || '-'
+    );
 
   return str
     .replace(/[^\w\s-]/g, '')
@@ -39,5 +42,5 @@ export {
   log,
   connectionMessage,
   catchAllError,
-  slugify
+  slugify,
 };

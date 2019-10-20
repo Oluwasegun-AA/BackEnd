@@ -19,7 +19,7 @@ const query = async (queryObj, res) => {
   const client = await pool.connect();
   try {
     const response = await client.query(queryObj);
-    return response.rows[0];
+    return response.rows;
   } catch (err) {
     return ResponseHandler.error(res, serverError, serverErrorMessage());
   }

@@ -4,12 +4,10 @@ import { catchAllError } from '../helpers';
 import FeedController from '../controllers/FeedController';
 
 const feeds = express.Router();
-const { get, post } = FeedController;
+const { get } = FeedController;
 
 
 feeds.get('/', get);
-
-feeds.post('/', post);
 
 catchAllError(feeds);
 
