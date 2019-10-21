@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import request from './Request';
+import request from './requestController';
 
 const findArticle = async (req, res) => {
   const resp = await request.findOne(req, res, 'Articles', 'slug');
@@ -11,9 +11,9 @@ const findAllArticles = async (req, res) => {
   return resp;
 };
 
-const findAllArticlesByUser = async req => {
-  const id = req.body;
-  const resp = await request.findAll('Articles', `where "authorId"=${id};`);
+const findAllArticlesByUser = async (req, res) => {
+  const { id } = req.params;
+  const resp = await request.findAll(res, 'Articles', `where "authorId"='${id}'`);
   return resp;
 };
 

@@ -16,10 +16,12 @@ const {
   getAllArticles,
   updateArticle,
   deleteArticle,
+  findAllArticlesByUser
 } = ArticlesController;
 
 articles.get('/', checkAllArticles, getAllArticles);
 articles.get('/:slug', checkArticleExist, getOneArticle);
+articles.get('/:id/user', findAllArticlesByUser);
 articles.delete('/:slug', checkArticleExist, deleteArticle);
 
 articles.post('/', validatePostArticles, checkArticleExist, postArticle);

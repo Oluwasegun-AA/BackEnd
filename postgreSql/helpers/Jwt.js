@@ -22,7 +22,7 @@ class Jwt {
           statusMessages.unauthorized('Invalid Token')
         );
       }
-      req.body.email = data.email;
+      req.tokenEmail = data.email;
     });
   }
 }
