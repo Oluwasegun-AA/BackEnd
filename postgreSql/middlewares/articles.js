@@ -47,7 +47,7 @@ const checkArticleExist = async (req, res, next) => {
     );
   }
 
-  if (!response && (method === 'PATCH' || 'GET' || 'DELETE')) {
+  if (!response && method !== 'POST') {
     return ResponseHandler.error(
       res,
       statusCodes.notFound,

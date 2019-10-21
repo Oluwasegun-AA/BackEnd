@@ -13,6 +13,7 @@ const arrangeValues = (item, replaceQuotes) => {
 class Request {
   static async findAll(res, table, whereText) {
     const queryText = `SELECT * FROM "${table}" ${whereText};`;
+    console.log('qqqqq', queryText)
     const resp = await query(queryText, res);
     return resp;
   }

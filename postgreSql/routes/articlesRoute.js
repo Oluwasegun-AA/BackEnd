@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { catchAllError } from '../helpers';
-import ArticlesController from '../controllers/ArticlesController';
+import { ArticlesController } from '../controllers';
 import {
   validatePostArticles,
   validateEditArticles,
@@ -15,7 +15,7 @@ const {
   postArticle,
   getAllArticles,
   updateArticle,
-  deleteArticle
+  deleteArticle,
 } = ArticlesController;
 
 articles.get('/', checkAllArticles, getAllArticles);

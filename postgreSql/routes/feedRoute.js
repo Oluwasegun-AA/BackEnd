@@ -1,13 +1,12 @@
 import express from 'express';
 
 import { catchAllError } from '../helpers';
-import FeedController from '../controllers/feedController';
+import { FeedsController } from '../controllers';
 
 const feeds = express.Router();
-const { get } = FeedController;
+const { getFeeds } = FeedsController;
 
-
-feeds.get('/', get);
+feeds.get('/', getFeeds);
 
 catchAllError(feeds);
 
