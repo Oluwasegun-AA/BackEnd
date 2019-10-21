@@ -1,4 +1,4 @@
-import request from './Request';
+import request from './requestController';
 import { extractValues } from '../helpers';
 
 const findUser = async (req, res) => {

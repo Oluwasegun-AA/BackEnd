@@ -13,6 +13,12 @@ import {
   findAllArticlesByUser,
 } from './articleModels';
 import findFeeds from './feedsModels';
+import {
+  getUser,
+  deleteUser,
+  updateUser,
+  getAllUsers
+} from './usersModel';
 
 export default {
   findUser,
@@ -25,5 +31,9 @@ export default {
   postUser,
   postArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  getUser,
+  deleteUser,
+  updateUser,
+  getAllUsers
 };

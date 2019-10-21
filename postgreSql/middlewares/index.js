@@ -5,7 +5,12 @@ import {
   checkArticleExist,
   checkAllArticles,
 } from './articles';
-import { checkUserExist, checkUserInToken } from './users';
+import {
+  checkUserExist,
+  checkUserInToken,
+  checkAdminInToken,
+  checkUserInParamExist,
+} from './users';
 
 export {
   validateSignupData,
@@ -16,4 +21,6 @@ export {
   checkUserInToken,
   checkArticleExist,
   checkAllArticles,
+  checkAdminInToken,
+  checkUserInParamExist
 };

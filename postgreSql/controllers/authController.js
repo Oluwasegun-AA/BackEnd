@@ -4,17 +4,31 @@ import {
   ResponseHandler,
   statusMessages,
   statusCodes,
-  Jwt
+  Jwt,
+  Password,
 } from '../helpers';
 
-const { success, created } = statusMessages;
+const { success, created, unauthorized } = statusMessages;
 const { encrypt } = Jwt;
 
 class Auth {
   static async login(req, res) {
-    return ResponseHandler.success(res, statusCodes.success, success('User Login Successful'), {
-      token: encrypt(pick(res.data, ['id', 'email', 'role'])),
-    });
+    const validUser = Password.decrypt(req.body.password, res.data.password);
+    if (validUser) {
+      return ResponseHandler.success(
+        res,
+        statusCodes.success,
+        success('User Login Successful'),
+        {
+          token: encrypt(pick(res.data, ['id', 'email', 'role'])),
+        }
+      );
+    }
+    return ResponseHandler.error(
+      res,
+      statusCodes.unauthorized,
+      unauthorized('Incorrect email or password')
+    );
   }
 
   static async signup(req, res) {

@@ -39,6 +39,11 @@ class Articles {
     const data = await db.deleteArticle(req, res);
     return articleSuccessResponse(res, 'Article deleted', data);
   }
+
+  static async findAllArticlesByUser(req, res) {
+    const data = await db.findAllArticlesByUser(req, res);
+    return articleSuccessResponse(res, 'Article retrieved', data);
+  }
 }
 
 export default Articles;

@@ -1,4 +1,4 @@
-import request from './Request';
+import request from './requestController';
 
 const findFeeds = async (req, res) => {
   const resp = await request.findAll(res, 'Articles', 'ORDER BY "createdAt" DESC');

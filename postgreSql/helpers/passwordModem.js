@@ -6,7 +6,7 @@ class Password {
   }
 
   static decrypt(password, hash) {
-    bcrypt.compareSync(password, hash);
+    return bcrypt.compareSync(password, hash);
   }
 }
 

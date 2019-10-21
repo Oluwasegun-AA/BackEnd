@@ -33,7 +33,7 @@ const rules = {
   role: joi.any().valid('User', 'Admin'),
 };
 
-const signupSchema = joi.object(omit(rules, ['role']));
+const signupSchema = joi.object(omit(rules));
 const loginSchema = joi.object(pick(rules, ['email', 'password']));
 
 const validateSignupData = async (req, res, next) =>
