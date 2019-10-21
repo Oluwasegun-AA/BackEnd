@@ -1,6 +1,6 @@
 {
   "name": "postgreSql",
-  "version": "0.2.7",
+  "version": "0.1.0",
   "description": "postgreSql",
   "main": "index.js",
   "keywords": [
