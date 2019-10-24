@@ -1,4 +1,5 @@
 import query from '../db/dbSetup';
+import { slugify } from '../helpers';
 
 const arrangeValues = (item, replaceQuotes) => {
   const value = `(${item.reduce((ac, c) => {
@@ -18,7 +19,15 @@ class Request {
   }
 
   static async findOne(req, res, table, column) {
-    const value = req.params[column] || req.body[column];
+    const value =
+      req.params[column] ||
+      req.body[column] ||
+      slugify(
+        req.body.description
+          .split(' ')
+          .splice(0, 10)
+          .join(' ')
+      );
     const queryText = `SELECT * FROM "${table}" WHERE "${column}"='${value}';`;
     const resp = await query(queryText, res);
     return resp[0];
