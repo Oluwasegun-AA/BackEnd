@@ -1,45 +1,36 @@
-import uuid from 'uuid/v4';
-
-import { Password } from '../helpers';
 import database from './dbSetup';
+import {
+  users,
+  privateChats,
+  groupChats,
+  privateMessages,
+  groupMessages,
+} from './seedData';
 
-const user = [
-  {
-    id: `${uuid()}`,
-    firstName: 'User',
-    lastName: 'test',
-    username: 'user',
-    email: 'user@email.com',
-    password: `${Password.encrypt('password')}`,
-    role: 'User',
-  },
-  {
-    id: `${uuid()}`,
-    firstName: 'Admin',
-    lastName: 'test',
-    username: 'admin',
-    email: 'admin@email.com',
-    password: `${Password.encrypt('password')}`,
-    role: 'Admin',
-  },
-  {
-    id: `${uuid()}`,
-    firstName: 'test',
-    lastName: 'admin',
-    username: 'user',
-    email: 'test@email.com',
-    password: `${Password.encrypt('password')}`,
-    role: 'User',
-  },
-];
-
-const initializeDb = async () => {
-  try {
-    await seedDb();
-  } catch (err) {
-    process.stdout.write(`${err}\n`);
-  }
-  process.stdout.write('All Tables created successfully!\n');
+const dropCollections = async () => {
+  const db = await database;
+  await db.listCollections().forEach(collection => {
+    db.collection(collection.name).drop();
+  });
 };
 
-initializeDb();
+const createCollections = async () => {
+  const db = await database;
+  db.collection('Users').insertMany(users);
+  db.collection('PrivateChats').insertMany(privateChats);
+  db.collection('GroupChats').insertMany(groupChats);
+  db.collection('PrivateMessages').insertMany(privateMessages);
+  db.collection('GroupMessages').insertMany(groupMessages);
+};
+
+const seedDb = async () => {
+  try {
+    await dropCollections();
+    await createCollections();
+    process.stdout.write('db seeded');
+  } catch (err) {
+    process.stdout.write(`Seeding error ${err}`);
+  }
+};
+
+seedDb();

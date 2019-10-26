@@ -1,39 +1,8 @@
-import {
-  findUser,
-  findAllUsers,
-  findAllAdmins,
-  postUser
-} from './authModels';
-import {
-  postArticle,
-  findArticle,
-  updateArticle,
-  deleteArticle,
-  findAllArticles,
-  findAllArticlesByUser,
-} from './articleModels';
-import findFeeds from './feedsModels';
-import {
-  getUser,
-  deleteUser,
-  updateUser,
-  getAllUsers
-} from './usersModel';
+import db from '../db/dbSetup';
 
-export default {
-  findUser,
-  findAllUsers,
-  findAllAdmins,
-  findArticle,
-  findAllArticles,
-  findAllArticlesByUser,
-  findFeeds,
-  postUser,
-  postArticle,
-  updateArticle,
-  deleteArticle,
-  getUser,
-  deleteUser,
-  updateUser,
-  getAllUsers
+const query = async (collection, method, data) => {
+  const resp = await db[collection][method](data);
+  return resp;
 };
+
+export default query;
