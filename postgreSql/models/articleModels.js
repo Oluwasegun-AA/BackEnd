@@ -1,5 +1,6 @@
 import uuid from 'uuid/v4';
 import request from './requestController';
+import { slugify } from '../helpers';
 
 const findArticle = async (req, res) => {
   const resp = await request.findOne(req, res, 'Articles', 'slug');
@@ -13,13 +14,23 @@ const findAllArticles = async (req, res) => {
 
 const findAllArticlesByUser = async (req, res) => {
   const { id } = req.params;
-  const resp = await request.findAll(res, 'Articles', `where "authorId"='${id}'`);
+  const resp = await request.findAll(
+    res,
+    'Articles',
+    `where "authorId"='${id}'`
+  );
   return resp;
 };
 
 const postArticle = async (req, res) => {
   const { body } = req;
-  const data = { ...body, id: uuid() };
+  const slug = slugify(
+    body.description
+      .split(' ')
+      .splice(0, 10)
+      .join(' ')
+  );
+  const data = { ...body, id: uuid(), slug };
   const resp = await request.post(req, res, 'Articles', data);
   return resp;
 };

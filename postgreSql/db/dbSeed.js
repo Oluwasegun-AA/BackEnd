@@ -21,9 +21,9 @@ const seedDb = async () => {
       );`;
   const articles = `CREATE TABLE IF NOT EXISTS "Articles"(
         id uuid PRIMARY KEY NOT NULL UNIQUE,
-        slug varchar(50) NOT NULL UNIQUE,
-        description varchar(255) NOT NULL,
-        body varchar(255) NOT NULL,
+        slug varchar(255) NOT NULL UNIQUE,
+        description varchar(100) NOT NULL,
+        body varchar NOT NULL,
         "tagId" uuid NOT NULL,
         "authorId" uuid NOT NULL,
         "createdAt" TIMESTAMP DEFAULT NOW(),
