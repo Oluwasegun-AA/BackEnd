@@ -119,31 +119,31 @@ const groupChats = [
 
 const privateMessages = [
   {
-    messageId: '8690789c-ce25-49a7-b530-b0dfcaff1262',
+    id: '8690789c-ce25-49a7-b530-b0dfcaff1262',
     chatId: '48e28a6a-9049-4270-8f2e-3ef1523fa2d1',
-    userId: '',
-    message: '',
+    userId: '2133ceb2-a218-4b67-bf31-8878351d3e27',
+    message: 'Hello, participant, Hope you are enjoying the platform',
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
     messageId: 'b61608ae-49c3-4bc2-a24e-5db6aecb5d33',
     chatId: '61fd9ef8-b52c-45be-890f-25809c928795',
-    userId: '',
-    message: '',
+    userId: '32e73174-6cbc-4627-9be1-3450b5b87fa0',
+    message: 'Yes,  I am. Thanks for checking up',
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
     messageId: '61fd9ef8-3567-43c9-af85-88b7174858dc',
     chatId: '61fd9ef8-b52c-45be-890f-25809c928795',
-    userId: '',
-    message: '',
+    userId: '2133ceb2-a218-4b67-bf31-8878351d3e27',
+    message: 'You are welcome.',
     createdAt: '2019-10-25T09:19:31.847Z',
   },
 ];
 
 const groupMessages = [
   {
-    messageId: '483e37f2-fa2d-465d-aa2c-81625d4c59e7',
+    id: '483e37f2-fa2d-465d-aa2c-81625d4c59e7',
     chatId: '7a389f74-8aba-4e52-9470-efc335483fd0',
     userId: '2133ceb2-a218-4b67-bf31-8878351d3e27',
     message: 'Hello, Good day!',
@@ -157,7 +157,7 @@ const groupMessages = [
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
-    messageId: '2f568fad-b588-4340-b908-085ed21937c3',
+    id: '2f568fad-b588-4340-b908-085ed21937c3',
     chatId: '7a389f74-8aba-4e52-9470-efc335483fd0',
     userId: '32e73174-6cbc-4627-9be1-3450b5b87fa0',
     message: 'best Admin in the world, how are you doing?',
