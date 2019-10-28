@@ -1,37 +1,37 @@
-import express from 'express';
+// import express from 'express';
 
-import { catchAllError } from '../helpers';
-import { ArticlesController } from '../controllers';
-import {
-  validatePostArticles,
-  validateEditArticles,
-  checkArticleExist,
-  checkAllArticles,
-} from '../middlewares';
+// import { catchAllError } from '../helpers';
+// import { ArticlesController } from '../controllers';
+// import {
+//   validatePostArticles,
+//   validateEditArticles,
+//   checkArticleExist,
+//   checkAllArticles,
+// } from '../middlewares';
 
-const articles = express.Router();
-const {
-  getOneArticle,
-  postArticle,
-  getAllArticles,
-  updateArticle,
-  deleteArticle,
-  findAllArticlesByUser
-} = ArticlesController;
+// const articles = express.Router();
+// const {
+//   getOneArticle,
+//   postArticle,
+//   getAllArticles,
+//   updateArticle,
+//   deleteArticle,
+//   findAllArticlesByUser
+// } = ArticlesController;
 
-articles.get('/', checkAllArticles, getAllArticles);
-articles.get('/:slug', checkArticleExist, getOneArticle);
-articles.get('/:id/user', findAllArticlesByUser);
-articles.delete('/:slug', checkArticleExist, deleteArticle);
+// articles.get('/', checkAllArticles, getAllArticles);
+// articles.get('/:slug', checkArticleExist, getOneArticle);
+// articles.get('/:id/user', findAllArticlesByUser);
+// articles.delete('/:slug', checkArticleExist, deleteArticle);
 
-articles.post('/', validatePostArticles, checkArticleExist, postArticle);
-articles.patch(
-  '/:slug',
-  validateEditArticles,
-  checkArticleExist,
-  updateArticle
-);
+// articles.post('/', validatePostArticles, checkArticleExist, postArticle);
+// articles.patch(
+//   '/:slug',
+//   validateEditArticles,
+//   checkArticleExist,
+//   updateArticle
+// );
 
-catchAllError(articles);
+// catchAllError(articles);
 
-export default articles;
+// export default articles;

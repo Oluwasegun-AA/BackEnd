@@ -14,8 +14,8 @@ const { success, badRequest } = statusCodes;
 const { BASE_URL } = process.env;
 
 router.use('/auth', auth);
-router.use('/articles', articles);
-router.use('/feeds', feeds);
+// router.use('/articles', articles);
+// router.use('/feeds', feeds);
 router.use('/users', users);
 
 router.use('/', (req, res) =>

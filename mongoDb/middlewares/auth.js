@@ -1,45 +1,33 @@
-import { pick, omit } from 'lodash';
-import joi from '@hapi/joi';
-import { joiValidateHelper } from '../helpers';
+import { UserModel, LoginModel } from '../models';
+import {
+  GetData,
+  validate
+} from '../helpers';
 
-const rules = {
-  firstName: joi
-    .string()
-    .min(3)
-    .max(30)
-    .required(),
-  lastName: joi
-    .string()
-    .min(3)
-    .max(30)
-    .required(),
-  username: joi
-    .string()
-    .alphanum()
-    .min(3)
-    .max(30)
-    .required(),
-  email: joi
-    .string()
-    .max(256)
-    .email({ minDomainSegments: 2 })
-    .required(),
-  password: joi
-    .string()
-    .min(8)
-    .max(15)
-    .pattern(/^[a-zA-Z0-9]{3,30}$/)
-    .required(),
-  role: joi.any().valid('User', 'Admin'),
+const validateSignupData = async (req, res, next) => {
+  const data = GetData.signup(req);
+  validate(res, UserModel, data);
+  req.body.data = data;
+  next();
 };
 
-const signupSchema = joi.object(omit(rules));
-const loginSchema = joi.object(pick(rules, ['email', 'password']));
+const validateLoginData = (req, res, next) => {
+  const data = GetData.login(req);
+  validate(res, LoginModel, data);
+  next();
+};
 
-const validateSignupData = async (req, res, next) =>
-  joiValidateHelper(req, res, next, signupSchema);
-
-const validateLoginData = async (req, res, next) =>
-  joiValidateHelper(req, res, next, loginSchema);
+// const ii = async (req, res, next) => {
+//   const { email } = GetData.login(req);
+//   const data = await UserModel.find({ email });
+//   if (data) {
+//     return ResponseHandler.error(
+//       res,
+//       statusCodes.conflict,
+//       statusMessages.badRequest('User Exists')
+//     );
+//   }
+//   next();
+// };
 
 export { validateSignupData, validateLoginData };

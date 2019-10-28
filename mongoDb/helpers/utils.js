@@ -15,32 +15,8 @@ const catchAllError = app =>
       message: statusMessages.routeNotFound(req),
     }));
 
-const slugify = str => {
-  const specialCharacters = 'ąàáäâãåæćęęèéëêìíïîłńòóöôõøśùúüûñçżź';
-  const replacement = 'aaaaaaaaceeeeeeiiiilnoooooosuuuunczz';
-  const regex = new RegExp(
-    `[${specialCharacters.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1')}]`,
-    'g'
-  );
-
-  if (!str) return '';
-
-  str = String(str)
-    .toLowerCase()
-    .replace(
-      regex,
-      char => replacement.charAt(specialCharacters.indexOf(char)) || '-'
-    );
-
-  return str
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-};
-
 export {
   log,
   connectionMessage,
   catchAllError,
-  slugify,
 };

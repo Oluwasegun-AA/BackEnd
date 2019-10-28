@@ -45,6 +45,7 @@ const users = [
 
 const privateChats = [
   {
+    id: '48e28a6a-9049-4270-8f2e-3ef1523fa2d1',
     chatId: '48e28a6a-9049-4270-8f2e-3ef1523fa2d1',
     users: [
       {
@@ -59,6 +60,7 @@ const privateChats = [
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
+    id: '61fd9ef8-b52c-45be-890f-25809c928795',
     chatId: '61fd9ef8-b52c-45be-890f-25809c928795',
     users: [
       {
@@ -76,6 +78,7 @@ const privateChats = [
 
 const groupChats = [
   {
+    id: '33bd9d13-bcb3-4df7-b6a0-4312ea6a0756',
     chatId: '33bd9d13-bcb3-4df7-b6a0-4312ea6a0756',
     users: [
       {
@@ -94,6 +97,7 @@ const groupChats = [
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
+    id: '7a389f74-8aba-4e52-9470-efc335483fd0',
     chatId: '7a389f74-8aba-4e52-9470-efc335483fd0',
     users: [
       {
@@ -126,14 +130,14 @@ const privateMessages = [
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
-    messageId: 'b61608ae-49c3-4bc2-a24e-5db6aecb5d33',
+    id: 'b61608ae-49c3-4bc2-a24e-5db6aecb5d33',
     chatId: '61fd9ef8-b52c-45be-890f-25809c928795',
     userId: '32e73174-6cbc-4627-9be1-3450b5b87fa0',
     message: 'Yes,  I am. Thanks for checking up',
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
-    messageId: '61fd9ef8-3567-43c9-af85-88b7174858dc',
+    id: '61fd9ef8-3567-43c9-af85-88b7174858dc',
     chatId: '61fd9ef8-b52c-45be-890f-25809c928795',
     userId: '2133ceb2-a218-4b67-bf31-8878351d3e27',
     message: 'You are welcome.',
@@ -150,7 +154,7 @@ const groupMessages = [
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
-    messageId: 'a7d4166d-ede9-4279-b5cc-3daf5e03fdd0',
+    id: 'a7d4166d-ede9-4279-b5cc-3daf5e03fdd0',
     chatId: '7a389f74-8aba-4e52-9470-efc335483fd0',
     userId: '67f2b05c-de4a-4f7a-a55d-2b8a10159a1c',
     message: 'Hi Admin, How are you doing?',

@@ -7,12 +7,12 @@ import {
   groupMessages,
 } from './seedData';
 import {
-  userModel,
-  privateChatModel,
-  groupChatModel,
-  privateMessageModel,
-  groupMessageModel,
-} from '../models/schemas';
+  UserModel,
+  PrivateChatModel,
+  GroupChatModel,
+  PrivateMessageModel,
+  GroupMessageModel,
+} from '../models';
 
 const dropCollections = async () => {
   const conn = await connection;
@@ -20,11 +20,11 @@ const dropCollections = async () => {
 };
 
 const createCollections = async () => {
-  userModel.insertMany(users);
-  privateChatModel.insertMany(privateChats);
-  groupChatModel.insertMany(groupChats);
-  privateMessageModel.insertMany(privateMessages);
-  groupMessageModel.insertMany(groupMessages);
+  UserModel.insertMany(users);
+  PrivateChatModel.insertMany(privateChats);
+  GroupChatModel.insertMany(groupChats);
+  PrivateMessageModel.insertMany(privateMessages);
+  GroupMessageModel.insertMany(groupMessages);
 };
 
 const seedDb = async () => {

@@ -1,5 +1,6 @@
 import { pick } from 'lodash';
-import db from '../models';
+import { UserModel } from '../models';
+import connection from '../db/dbSetup';
 import {
   ResponseHandler,
   statusMessages,
@@ -32,9 +33,28 @@ class Auth {
   }
 
   static async signup(req, res) {
-    const data = await db.postUser(req, res);
-    return ResponseHandler.success(res, statusCodes.created, created('User '), {
-      token: encrypt(pick(data, ['id', 'email'])),
+    await connection;
+    const data = {
+      ...req.body.data,
+      password: Password.encrypt(req.body.password),
+    };
+    const model = new UserModel(data);
+    await model.save((err, value) => {
+      if (err) {
+        return ResponseHandler.error(
+          res,
+          statusCodes.serverError,
+          statusMessages.serverErrorMessage()
+        );
+      }
+      return ResponseHandler.success(
+        res,
+        statusCodes.created,
+        created('User '),
+        {
+          token: encrypt(pick(value, ['id', 'email'])),
+        }
+      );
     });
   }
 }

@@ -1,13 +1,13 @@
-import express from 'express';
+// import express from 'express';
 
-import { catchAllError } from '../helpers';
-import { FeedsController } from '../controllers';
+// import { catchAllError } from '../helpers';
+// import { FeedsController } from '../controllers';
 
-const feeds = express.Router();
-const { getFeeds } = FeedsController;
+// const feeds = express.Router();
+// const { getFeeds } = FeedsController;
 
-feeds.get('/', getFeeds);
+// feeds.get('/', getFeeds);
 
-catchAllError(feeds);
+// catchAllError(feeds);
 
-export default feeds;
+// export default feeds;

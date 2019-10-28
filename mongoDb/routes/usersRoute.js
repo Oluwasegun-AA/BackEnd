@@ -19,11 +19,11 @@ const {
   deleteUser
 } = UsersController;
 
-users.get('/', checkAdminInToken, getAllUsers);
-users.get('/:id', checkUserInToken, checkUserInParamExist, getUser);
-users.post('/', validateSignupData, checkAdminInToken, checkUserExist, postUser);
-users.patch('/:id', checkAdminInToken, checkUserInParamExist, updateUser);
-users.delete('/:id', checkAdminInToken, checkUserInParamExist, deleteUser);
+users.get('/', getAllUsers);
+users.get('/:id', checkUserInParamExist, getUser);
+users.post('/', validateSignupData, checkUserExist, postUser);
+// users.patch('/:id', checkUserInParamExist, updateUser);
+// users.delete('/:id', checkUserInParamExist, deleteUser);
 
 
 catchAllError(users);
