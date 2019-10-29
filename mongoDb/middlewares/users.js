@@ -1,28 +1,20 @@
 import { isEmpty, pick } from 'lodash';
 import { UserModel } from '../models';
 import {
+  Jwt,
   GetData,
   ResponseHandler,
   statusCodes,
   statusMessages,
 } from '../helpers';
 
-// import {
-//   ResponseHandler,
-//   statusCodes,
-//   statusMessages,
-//   Jwt
-// } from '../helpers';
-
-// import request from '../models/requestController';
-
-// const invalidTokenMessage = res => {
-//   ResponseHandler.error(
-//     res,
-//     statusCodes.unauthorized,
-//     statusMessages.unauthorized('Invalid Token')
-//   );
-// };
+const invalidTokenMessage = res => {
+  ResponseHandler.error(
+    res,
+    statusCodes.unauthorized,
+    statusMessages.unauthorized('Invalid Token')
+  );
+};
 
 const checkUserExist = async (req, res, next) => {
   const {
@@ -64,27 +56,37 @@ const checkUserInParamExist = async (req, res, next) => {
   next();
 };
 
-// const checkUserInToken = async (req, res, next) => {
-//   const token = req.headers['x-access-token'];
-//   Jwt.decrypt(req, res, token);
-//   const response = await request.findTokenUser(req, res);
-//   if (!response) return invalidTokenMessage(res);
-//   next();
-// };
+const checkUserInToken = async (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  const data = await Jwt.decrypt(req, res, token);
+  const user = await UserModel.findOne({ id: data.id });
+  const mainUser = await UserModel.findOne({ id: req.params.id });
+  if ((user.id !== mainUser.id) && (user.role !== 'Admin')) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.unauthorized,
+      statusMessages.unauthorized('Use authorized details')
+    );
+  }
+  if (isEmpty(data) || isEmpty(user) || !user.role) {
+    return invalidTokenMessage(res);
+  }
+  next();
+};
 
-// const checkAdminInToken = async (req, res, next) => {
-//   const token = req.headers['x-access-token'];
-//   Jwt.decrypt(req, res, token);
-//   const { role } = await request.findTokenUser(req, res);
-//   if (role !== 'Admin') return invalidTokenMessage(res);
-//   next();
-// };
+const checkAdminInToken = async (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  const data = await Jwt.decrypt(req, res, token);
+  const user = await UserModel.findOne({ id: data.id });
+  if (isEmpty(data) || isEmpty(user) || user.role !== 'Admin') {
+    return invalidTokenMessage(res);
+  }
+  next();
+};
 
-// export {
-//   checkUserExist,
-//   checkUserInToken,
-//   checkAdminInToken,
-//   checkUserInParamExist,
-// };
-
-export { checkUserExist, checkUserInParamExist };
+export {
+  checkUserExist,
+  checkUserInParamExist,
+  checkUserInToken,
+  checkAdminInToken,
+};

@@ -5,13 +5,13 @@ import { validateSignupData, validateLoginData } from './auth';
 //   checkArticleExist,
 //   checkAllArticles,
 // } from './articles';
-// import {
-//   checkUserExist,
-//   checkUserInToken,
-//   checkAdminInToken,
-//   checkUserInParamExist,
-// } from './users';
-import { checkUserExist, checkUserInParamExist } from './users';
+
+import {
+  checkUserExist,
+  checkUserInParamExist,
+  checkAdminInToken,
+  checkUserInToken
+} from './users';
 // export {
 //   validateSignupData,
 //   validateLoginData,
@@ -25,4 +25,11 @@ import { checkUserExist, checkUserInParamExist } from './users';
 //   checkUserInParamExist
 // };
 
-export { validateSignupData, validateLoginData, checkUserExist, checkUserInParamExist };
+export {
+  validateSignupData,
+  validateLoginData,
+  checkUserExist,
+  checkUserInParamExist,
+  checkUserInToken,
+  checkAdminInToken
+};

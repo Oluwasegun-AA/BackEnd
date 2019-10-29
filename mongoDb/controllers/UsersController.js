@@ -1,4 +1,4 @@
-import { omit, pick } from 'lodash';
+import { omit, pick, isEmpty } from 'lodash';
 import { UserModel } from '../models';
 import connection from '../db/dbSetup';
 import {
@@ -10,6 +10,14 @@ import {
 } from '../helpers';
 
 const { success, created } = statusMessages;
+
+const serverError = res => {
+  ResponseHandler.error(
+    res,
+    statusCodes.serverError,
+    statusMessages.serverErrorMessage()
+  );
+};
 
 class Users {
   static async getAllUsers(req, res) {
@@ -44,13 +52,7 @@ class Users {
     };
     const model = new UserModel(data);
     await model.save((err, value) => {
-      if (err) {
-        return ResponseHandler.error(
-          res,
-          statusCodes.serverError,
-          statusMessages.serverErrorMessage()
-        );
-      }
+      if (err) return serverError(res);
       return ResponseHandler.success(
         res,
         statusCodes.created,
@@ -63,23 +65,32 @@ class Users {
   }
 
   static async updateUser(req, res) {
-    const data = await db.updateUser(req, res);
-    return ResponseHandler.success(
-      res,
-      statusCodes.success,
-      success('User Updated'),
-      omit(data, ['password'])
+    const data = isEmpty(req.body.password) ? omit(req.body, ['password']) : { ...req.body, password: Password.encrypt(req.body.password) };
+    await UserModel.findOneAndUpdate(
+      { id: req.params.id },
+      data,
+      (err, response) => {
+        const value = JSON.parse(JSON.stringify(response));
+        if (err) return serverError(res);
+        return ResponseHandler.success(
+          res,
+          statusCodes.success,
+          success('User Updated'),
+          omit(value, ['password', '__v'])
+        );
+      }
     );
   }
 
   static async deleteUser(req, res) {
-    const data = await db.deleteUser(req, res);
-    return ResponseHandler.success(
-      res,
-      statusCodes.success,
-      success('User deleted'),
-      omit(data, ['password'])
-    );
+    await UserModel.deleteOne({ id: req.params.id }, (err) => {
+      if (err) return serverError(res);
+      return ResponseHandler.success(
+        res,
+        statusCodes.success,
+        success('User deleted')
+      );
+    });
   }
 }
 

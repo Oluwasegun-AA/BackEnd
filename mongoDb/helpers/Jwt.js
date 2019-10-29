@@ -14,15 +14,17 @@ class Jwt {
   }
 
   static decrypt(req, res, token) {
-    jwt.verify(token, SECRETE, (err, data) => {
-      if (err) {
-        return ResponseHandler.error(
-          res,
-          statusCodes.unauthorized,
-          statusMessages.unauthorized('Invalid Token')
-        );
-      }
-      req.tokenEmail = data.email;
+    return new Promise((resolve) => {
+      jwt.verify(token, SECRETE, (err, data) => {
+        if (err) {
+          return ResponseHandler.error(
+            res,
+            statusCodes.unauthorized,
+            statusMessages.unauthorized('Invalid Token')
+          );
+        }
+        resolve(data);
+      });
     });
   }
 }
