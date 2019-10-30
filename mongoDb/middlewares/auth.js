@@ -1,19 +1,36 @@
+import { isEmpty } from 'lodash';
 import { UserModel, LoginModel } from '../models';
 import {
   GetData,
-  validate
+  validate,
+  ResponseHandler,
+  statusCodes
 } from '../helpers';
 
 const validateSignupData = async (req, res, next) => {
   const data = GetData.signup(req);
-  validate(res, UserModel, data);
+  const error = validate(res, UserModel, data);
+  if (!isEmpty(error)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.badRequest,
+      Object.values(error.errors).flatMap(err => err.message)
+    );
+  }
   req.body.data = data;
   next();
 };
 
 const validateLoginData = (req, res, next) => {
   const data = GetData.login(req);
-  validate(res, LoginModel, data);
+  const error = validate(res, LoginModel, data);
+  if (!isEmpty(error)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.badRequest,
+      Object.values(error.errors).flatMap(err => err.message)
+    );
+  }
   next();
 };
 

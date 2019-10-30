@@ -1,4 +1,3 @@
-import uuid from 'uuid/v4';
 import { pick } from 'lodash';
 import Password from './passwordModem';
 
@@ -12,7 +11,6 @@ class extractValues {
       password
     } = req.body;
     return {
-      id: `${uuid()}`,
       firstName,
       lastName,
       username,

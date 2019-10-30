@@ -14,6 +14,10 @@ class GetData {
       'lastName',
     ]);
   }
+
+  static chat(req) {
+    return pick(req.body, ['users']);
+  }
 }
 
 export default GetData;

@@ -1,16 +1,16 @@
 import { validateSignupData, validateLoginData } from './auth';
-// import {
-//   validatePostArticles,
-//   validateEditArticles,
-//   checkArticleExist,
-//   checkAllArticles,
-// } from './articles';
+import {
+  validatePostChats,
+  validateEditChats,
+  checkChatExist,
+  checkAllChats,
+} from './chats';
 
 import {
   checkUserExist,
   checkUserInParamExist,
   checkAdminInToken,
-  checkUserInToken
+  checkUserInToken,
 } from './users';
 // export {
 //   validateSignupData,
@@ -26,10 +26,14 @@ import {
 // };
 
 export {
+  validatePostChats,
+  validateEditChats,
+  checkChatExist,
+  checkAllChats,
   validateSignupData,
   validateLoginData,
   checkUserExist,
   checkUserInParamExist,
   checkUserInToken,
-  checkAdminInToken
+  checkAdminInToken,
 };

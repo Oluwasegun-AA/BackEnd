@@ -1,5 +1,3 @@
-import ResponseHandler from './ResponseHandler';
-import { statusCodes } from './status';
 
 // const extractJoiErrorMessage = error => {
 //   const { message } = error.details[0];
@@ -21,16 +19,10 @@ import { statusCodes } from './status';
 //   }
 // };
 
-const validate = (res, Model, data) => {
+const validate = (Model, data) => {
   const newModel = new Model(data);
   const error = newModel.validateSync();
-  if (error) {
-    return ResponseHandler.error(
-      res,
-      statusCodes.badRequest,
-      Object.values(error.errors).flatMap(err => err.message)
-    );
-  }
+  return error;
 };
 
 export default validate;

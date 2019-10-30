@@ -1,14 +1,7 @@
 import { pick } from 'lodash';
-import uuid from 'uuid/v4';
 import { MakeSchema } from '../helpers';
 
 const rules = {
-  id: {
-    type: String,
-    minlength: 36,
-    unique: true,
-    default: uuid(),
-  },
   firstName: {
     type: String,
     maxlength: 30,
@@ -53,7 +46,7 @@ const loginController = new MakeSchema(
   'Login',
   pick(rules, ['email', 'password'])
 );
-const LoginModel = loginController.getModel();
+// const LoginModel = loginController.getModel();
 const UserModel = controller.getModel();
 const UserSchema = controller.getSchema();
 

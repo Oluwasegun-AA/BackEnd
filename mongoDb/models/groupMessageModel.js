@@ -1,20 +1,14 @@
-import uuid from 'uuid/v4';
+import { Schema } from 'mongoose';
 import { MakeSchema } from '../helpers';
 
 const rules = {
-  id: {
-    type: String,
-    minlength: 36,
-    unique: true,
-    default: uuid(),
-  },
   chatId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     minlength: 36,
     required: [true, 'chatId not supplied'],
   },
   userId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     minlength: 36,
     required: [true, 'userId not supplied'],
   },

@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import auth from './authRoute';
-import articles from './articlesRoute';
+import chats from './chatsRoute';
 import feeds from './feedsRoute';
 import users from './usersRoute';
 
@@ -14,7 +14,7 @@ const { success, badRequest } = statusCodes;
 const { BASE_URL } = process.env;
 
 router.use('/auth', auth);
-// router.use('/articles', articles);
+router.use('/chats', chats);
 // router.use('/feeds', feeds);
 router.use('/users', users);
 
