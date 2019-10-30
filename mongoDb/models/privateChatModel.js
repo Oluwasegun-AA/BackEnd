@@ -19,17 +19,6 @@ const childRules = {
 const childModel = new MakeSchema('privateChatUsers', childRules).getModel();
 
 const rules = {
-  id: {
-    type: String,
-    minlength: 36,
-    unique: true,
-    default: uuid(),
-  },
-  chatId: {
-    type: String,
-    minlength: 36,
-    required: [true, 'chatId not supplied'],
-  },
   users: {
     type: Schema.ObjectId,
     ref: 'privateChatUsers',

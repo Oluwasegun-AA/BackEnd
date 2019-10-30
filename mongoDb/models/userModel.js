@@ -46,7 +46,7 @@ const loginController = new MakeSchema(
   'Login',
   pick(rules, ['email', 'password'])
 );
-// const LoginModel = loginController.getModel();
+const LoginModel = loginController.getModel();
 const UserModel = controller.getModel();
 const UserSchema = controller.getSchema();
 
