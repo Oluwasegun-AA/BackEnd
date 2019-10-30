@@ -61,14 +61,28 @@ const privateChats = [
   {
     _id: privateChat1,
     users: [
-      object()
+      {
+        userId: user1,
+        username: 'user1',
+      },
+      {
+        userId: user2,
+        username: 'admin',
+      },
     ],
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
     _id: privateChat2,
     users: [
-      object()
+      {
+        userId: user3,
+        username: 'user2',
+      },
+      {
+        userId: user4,
+        username: 'user3',
+      },
     ],
     createdAt: '2019-10-25T09:19:31.847Z',
   },
@@ -78,14 +92,40 @@ const groupChats = [
   {
     _id: groupChat1,
     users: [
-      object()
+      {
+        userId: user1,
+        username: 'user1',
+      },
+      {
+        userId: user2,
+        username: 'admin',
+      },
+      {
+        userId: user3,
+        username: 'user2',
+      },
     ],
     createdAt: '2019-10-25T09:19:31.847Z',
   },
   {
     _id: groupChat2,
     users: [
-      object()
+      {
+        userId: user1,
+        username: 'user2',
+      },
+      {
+        userId: user2,
+        username: 'admin',
+      },
+      {
+        userId: user3,
+        username: 'user1',
+      },
+      {
+        userId: user4,
+        username: 'user3',
+      },
     ],
     createdAt: '2019-10-25T09:19:31.847Z',
   },

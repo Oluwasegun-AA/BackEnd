@@ -4,7 +4,6 @@ import { MakeSchema, Schema } from '../helpers';
 const childRules = {
   userId: {
     type: String,
-    minlength: 36,
     unique: true,
     required: [true, 'userId not supplied'],
   },
@@ -16,14 +15,10 @@ const childRules = {
   },
 };
 
-new MakeSchema('groupChatUsers', childRules).getModel();
+const childSchema = new MakeSchema('groupChatUsers', childRules).getSchema();
 
 const rules = {
-  users: [{
-    type: Schema.ObjectId,
-    ref: 'groupChatUsers',
-    required: [true, 'users not supplied'],
-  }],
+  users: [childSchema],
   createdAt: { type: Date, default: Date.now },
 };
 
