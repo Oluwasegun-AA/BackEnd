@@ -4,9 +4,13 @@ import { catchAllError } from '../helpers';
 import { ChatsController } from '../controllers';
 import {
   validatePostChats,
-  validateEditChats,
   checkChatExist,
   checkAllChats,
+  checkChatIdExists,
+  checkUserInParamExist,
+  checkUserHasChats,
+  checkUserIsAdmin,
+  checkUserInChat
 } from '../middlewares';
 
 const Chats = express.Router();
@@ -23,18 +27,15 @@ const {
 Chats.get('/', checkAllChats, getAllChats);
 Chats.get('/private', checkAllChats, getAllChats);
 Chats.get('/group', checkAllChats, getAllChats);
-Chats.get('/:id', checkAllChats, getOneChat);
-Chats.get('/:id/user', findAllChatsByUser);
-Chats.delete('/:slug', checkChatExist, deleteChat);
+Chats.get('/:id/group', checkChatIdExists, getOneChat);
+Chats.get('/:id/private', checkChatIdExists, getOneChat);
+Chats.get('/:id/user', checkUserInParamExist, checkUserHasChats, findAllChatsByUser);
+Chats.delete('/:id/private', checkChatIdExists, checkUserInChat, deleteChat);
+Chats.delete('/:id/group', checkChatIdExists, checkUserIsAdmin, deleteChat);
 
 Chats.post('/private', validatePostChats, checkChatExist, postPrivateChat);
-Chats.post('/group', validatePostChats, checkChatExist, postGroupChat);
-Chats.patch(
-  '/:slug',
-  validateEditChats,
-  checkChatExist,
-  updateChat
-);
+Chats.post('/group', validatePostChats, postGroupChat);
+Chats.patch('/:id/group', checkChatIdExists, checkUserIsAdmin, updateChat);
 
 catchAllError(Chats);
 

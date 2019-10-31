@@ -15,6 +15,7 @@ const connect = async () => {
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      config: { autoIndex: false },
     },
     err => {
       if (err) process.stdout.write(`Could not connect to mongo server!\n ${err} \n`);

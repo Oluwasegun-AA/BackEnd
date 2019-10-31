@@ -1,5 +1,11 @@
+import { omit, isEmpty } from 'lodash';
 import { GroupChatModel, PrivateChatModel } from '../models';
-import { ResponseHandler, statusMessages, statusCodes } from '../helpers';
+import {
+  ResponseHandler,
+  statusMessages,
+  statusCodes,
+  GetData,
+} from '../helpers';
 
 const { success, created } = statusMessages;
 
@@ -11,23 +17,26 @@ const chatSuccessResponse = (res, string, data) =>
     res.data || data
   );
 const saveData = async (req, res, Model) => {
-  const data = req;
-  const model = new Model(data);
-  await model.save((err, value) => {
-    if (err) {
-      return ResponseHandler.error(
+  const { data } = res;
+  if (isEmpty(data)) {
+    const { users, groupName } = GetData.chat(req);
+    const model = new Model({ users, groupName });
+    await model.save((err, value) => {
+      if (err) {
+        return ResponseHandler.error(
+          res,
+          statusCodes.serverError,
+          statusMessages.serverErrorMessage()
+        );
+      }
+      return ResponseHandler.success(
         res,
-        statusCodes.serverError,
-        statusMessages.serverErrorMessage()
+        statusCodes.created,
+        created('Chat'),
+        value
       );
-    }
-    return ResponseHandler.success(
-      res,
-      statusCodes.created,
-      created('Chat'),
-      value
-    );
-  });
+    });
+  } else return chatSuccessResponse(res, 'chat found', data);
 };
 
 class Chats {
@@ -48,18 +57,36 @@ class Chats {
   }
 
   static async updateChat(req, res) {
-    const data = await db.updateChat(req, res);
-    return chatSuccessResponse(res, 'Chat Updated', data);
+    const update = GetData.chat(req);
+    const userExist = update.users
+      ? await GroupChatModel.findOne({
+        'users.userId': update.users[0].userId,
+      })
+      : undefined;
+    if (!isEmpty(userExist)) {
+      return ResponseHandler.error(
+        res,
+        statusCodes.conflict,
+        statusMessages.conflict('user already in the group')
+      );
+    }
+    await GroupChatModel.updateOne(
+      { _id: req.params.id },
+      { $push: { users: update.users }, ...omit(update, ['users']) }
+    );
+    return chatSuccessResponse(res, 'Chat Updated');
   }
 
   static async deleteChat(req, res) {
-    const data = await db.deleteChat(req, res);
+    const model = req.url.includes('/group')
+      ? GroupChatModel
+      : PrivateChatModel;
+    const data = await model.findByIdAndDelete(req.params.id);
     return chatSuccessResponse(res, 'Chat deleted', data);
   }
 
   static async findAllChatsByUser(req, res) {
-    const data = await db.findAllChatsByUser(req, res);
-    return chatSuccessResponse(res, 'Chat retrieved', data);
+    chatSuccessResponse(res, 'Chats retrieved');
   }
 }
 

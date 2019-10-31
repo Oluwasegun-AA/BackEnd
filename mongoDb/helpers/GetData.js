@@ -16,7 +16,7 @@ class GetData {
   }
 
   static chat(req) {
-    return pick(req.body, ['users']);
+    return pick(req.body, ['users', 'groupName', 'admin']);
   }
 }
 

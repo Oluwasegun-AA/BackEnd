@@ -1,9 +1,12 @@
 import { validateSignupData, validateLoginData } from './auth';
 import {
   validatePostChats,
-  validateEditChats,
   checkChatExist,
   checkAllChats,
+  checkChatIdExists,
+  checkUserHasChats,
+  checkUserIsAdmin,
+  checkUserInChat
 } from './chats';
 
 import {
@@ -27,9 +30,12 @@ import {
 
 export {
   validatePostChats,
-  validateEditChats,
+  checkUserHasChats,
+  checkUserIsAdmin,
+  checkUserInChat,
   checkChatExist,
   checkAllChats,
+  checkChatIdExists,
   validateSignupData,
   validateLoginData,
   checkUserExist,
