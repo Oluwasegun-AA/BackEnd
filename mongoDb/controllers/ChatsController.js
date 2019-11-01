@@ -1,5 +1,10 @@
 import { omit, isEmpty } from 'lodash';
-import { GroupChatModel, PrivateChatModel } from '../models';
+import {
+  GroupChatModel,
+  PrivateChatModel,
+  PrivateMessageModel,
+  GroupMessageModel,
+} from '../models';
 import {
   ResponseHandler,
   statusMessages,
@@ -14,7 +19,7 @@ const chatSuccessResponse = (res, string, data) =>
     res,
     statusCodes.success,
     success(string),
-    res.data || data
+    data || res.data
   );
 const saveData = async (req, res, Model) => {
   const { data } = res;
@@ -39,6 +44,13 @@ const saveData = async (req, res, Model) => {
   } else return chatSuccessResponse(res, 'chat found', data);
 };
 
+const getData = async (model, query) => {
+  const data = await model.find(query);
+  if (isEmpty(data)) {
+    return undefined;
+  }
+  return data;
+};
 class Chats {
   static async getOneChat(req, res) {
     return chatSuccessResponse(res, 'Chat Retrieved');
@@ -46,6 +58,21 @@ class Chats {
 
   static async getAllChats(req, res) {
     return chatSuccessResponse(res, 'Chats Retrieved');
+  }
+
+  static async getAllMessagesInChat(req, res) {
+    const condition = { chatId: req.params.id };
+    const chats =
+      (await getData(GroupMessageModel, condition)) ||
+      (await getData(PrivateMessageModel, condition));
+    if (!isEmpty(chats)) {
+      return chatSuccessResponse(res, 'Chats retrieved successfully', chats);
+    }
+    return ResponseHandler.error(
+      res,
+      statusCodes.notFound,
+      statusMessages.notFound('Chat history')
+    );
   }
 
   static async postPrivateChat(req, res) {
@@ -74,7 +101,11 @@ class Chats {
       { _id: req.params.id },
       { $push: { users: update.users }, ...omit(update, ['users']) }
     );
-    return chatSuccessResponse(res, 'Chat Updated');
+    return chatSuccessResponse(
+      res,
+      'Chat Updated',
+      await GroupChatModel.findById(req.params.id)
+    );
   }
 
   static async deleteChat(req, res) {

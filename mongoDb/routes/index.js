@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 import auth from './authRoute';
 import chats from './chatsRoute';
-import feeds from './feedsRoute';
+import messages from './messagesRoute';
 import users from './usersRoute';
 
 import { statusCodes, statusMessages, ResponseHandler } from '../helpers';
@@ -15,7 +15,7 @@ const { BASE_URL } = process.env;
 
 router.use('/auth', auth);
 router.use('/chats', chats);
-// router.use('/feeds', feeds);
+router.use('/messages', messages);
 router.use('/users', users);
 
 router.use('/', (req, res) =>

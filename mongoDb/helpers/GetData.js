@@ -18,6 +18,10 @@ class GetData {
   static chat(req) {
     return pick(req.body, ['users', 'groupName', 'admin']);
   }
+
+  static message(req) {
+    return pick(req.body, ['chatId', 'userId', 'message']);
+  }
 }
 
 export default GetData;

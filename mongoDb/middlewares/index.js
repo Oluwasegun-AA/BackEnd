@@ -6,7 +6,7 @@ import {
   checkChatIdExists,
   checkUserHasChats,
   checkUserIsAdmin,
-  checkUserInChat
+  checkUserInChat,
 } from './chats';
 
 import {
@@ -15,18 +15,14 @@ import {
   checkAdminInToken,
   checkUserInToken,
 } from './users';
-// export {
-//   validateSignupData,
-//   validateLoginData,
-//   validatePostArticles,
-//   validateEditArticles,
-//   checkUserExist,
-//   checkUserInToken,
-//   checkArticleExist,
-//   checkAllArticles,
-//   checkAdminInToken,
-//   checkUserInParamExist
-// };
+import {
+  validatePostMessages,
+  checkMessageExist,
+  checkUserOwnsMessage,
+  checkAllMessages,
+  checkMessageIdExists,
+  checkUserHasMessages,
+} from './messages';
 
 export {
   validatePostChats,
@@ -42,4 +38,10 @@ export {
   checkUserInParamExist,
   checkUserInToken,
   checkAdminInToken,
+  validatePostMessages,
+  checkMessageExist,
+  checkUserOwnsMessage,
+  checkAllMessages,
+  checkMessageIdExists,
+  checkUserHasMessages,
 };

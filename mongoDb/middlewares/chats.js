@@ -93,11 +93,9 @@ const checkUserHasChats = async (req, res, next) => {
 
 const checkChatIdExists = async (req, res, next) => {
   const {
-    url,
     params: { id },
   } = req;
-  const model = url.includes('/group') ? GroupChatModel : PrivateChatModel;
-  const response = await model.findById(id);
+  const response = await GroupChatModel.findById(id) || await PrivateChatModel.findById(id);
   if (isEmpty(response)) {
     return ResponseHandler.error(
       res,
@@ -131,21 +129,23 @@ const checkUserIsAdmin = async (req, res, next) => {
 
 const checkUserInChat = async (req, res, next) => {
   const {
-    body: { userId },
+    url,
+    body: { userId, chatId },
     params: { id },
   } = req;
   const query = {
     $and: [
       { 'users.userId': ObjectId(`${userId}`) },
-      { _id: ObjectId(`${id}`) },
+      { _id: ObjectId(`${chatId || id}`) },
     ],
   };
-  const response = await PrivateChatModel.findOne(query);
+  const model = url.includes('/group') ? GroupChatModel : PrivateChatModel;
+  const response = await model.findOne(query);
   if (isEmpty(response)) {
     return ResponseHandler.error(
       res,
       statusCodes.unauthorized,
-      statusMessages.unauthorized()
+      statusMessages.unauthorized('you must be a member of the chat to perform this operation')
     );
   }
   res.data = response;
