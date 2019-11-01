@@ -44,7 +44,7 @@ const checkUserExist = async (req, res, next) => {
 };
 
 const checkUserInParamExist = async (req, res, next) => {
-  const response = await UserModel.findOne({ id: req.params.id });
+  const response = await UserModel.findById(req.params.id);
   if (!response) {
     return ResponseHandler.error(
       res,

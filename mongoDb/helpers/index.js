@@ -4,7 +4,7 @@ import ResponseHandler from './ResponseHandler';
 import Jwt from './Jwt';
 import Password from './passwordModem';
 import extractValues from './extractValues';
-import validate from './validator';
+import { validate, validatePath } from './validator';
 import { MakeSchema, Schema } from './mongooseHelper';
 import GetData from './GetData';
 
@@ -21,5 +21,6 @@ export {
   Schema,
   Password,
   extractValues,
-  validate
+  validate,
+  validatePath,
 };

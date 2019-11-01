@@ -1,6 +1,5 @@
-import uuid from 'uuid/v4';
-import { MakeSchema } from '../helpers';
 import { Schema } from 'mongoose';
+import { MakeSchema } from '../helpers';
 
 const rules = {
   chatId: {

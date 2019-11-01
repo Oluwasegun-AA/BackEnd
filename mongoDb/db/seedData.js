@@ -91,6 +91,8 @@ const privateChats = [
 const groupChats = [
   {
     _id: groupChat1,
+    groupName: 're-union group',
+    admin: user1,
     users: [
       {
         userId: user1,
@@ -109,6 +111,8 @@ const groupChats = [
   },
   {
     _id: groupChat2,
+    groupName: 'financial libration',
+    admin: user2,
     users: [
       {
         userId: user1,

@@ -1,9 +1,12 @@
 import { validateSignupData, validateLoginData } from './auth';
 import {
   validatePostChats,
-  validateEditChats,
   checkChatExist,
   checkAllChats,
+  checkChatIdExists,
+  checkUserHasChats,
+  checkUserIsAdmin,
+  checkUserInChat,
 } from './chats';
 
 import {
@@ -12,28 +15,33 @@ import {
   checkAdminInToken,
   checkUserInToken,
 } from './users';
-// export {
-//   validateSignupData,
-//   validateLoginData,
-//   validatePostArticles,
-//   validateEditArticles,
-//   checkUserExist,
-//   checkUserInToken,
-//   checkArticleExist,
-//   checkAllArticles,
-//   checkAdminInToken,
-//   checkUserInParamExist
-// };
+import {
+  validatePostMessages,
+  checkMessageExist,
+  checkUserOwnsMessage,
+  checkAllMessages,
+  checkMessageIdExists,
+  checkUserHasMessages,
+} from './messages';
 
 export {
   validatePostChats,
-  validateEditChats,
+  checkUserHasChats,
+  checkUserIsAdmin,
+  checkUserInChat,
   checkChatExist,
   checkAllChats,
+  checkChatIdExists,
   validateSignupData,
   validateLoginData,
   checkUserExist,
   checkUserInParamExist,
   checkUserInToken,
   checkAdminInToken,
+  validatePostMessages,
+  checkMessageExist,
+  checkUserOwnsMessage,
+  checkAllMessages,
+  checkMessageIdExists,
+  checkUserHasMessages,
 };

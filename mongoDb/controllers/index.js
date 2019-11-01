@@ -1,11 +1,11 @@
 import AuthController from './authController';
 import ChatsController from './ChatsController';
 import UsersController from './UsersController';
-import FeedsController from './feedsController';
+import MessagesController from './MessagesController';
 
 export {
   AuthController,
   ChatsController,
   UsersController,
-  FeedsController
+  MessagesController
 };

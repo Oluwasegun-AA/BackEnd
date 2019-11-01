@@ -1,5 +1,5 @@
-import { omit, isEmpty } from 'lodash';
-import uuid from 'uuid/v4';
+import { isEmpty } from 'lodash';
+import mongoose from 'mongoose';
 import { GroupChatModel, PrivateChatModel } from '../models';
 
 import {
@@ -10,34 +10,35 @@ import {
   GetData,
 } from '../helpers';
 
+const { ObjectId } = mongoose.Types;
 const validatePostChats = async (req, res, next) => {
-  console.log('kkkkk', req.body)
-  const data = { ...GetData.chat(req), chatId: uuid(), id: uuid() };
-  console.log(data)
+  const data = { ...GetData.chat(req), chatId: ObjectId() };
   const model = req.url === '/group' ? GroupChatModel : PrivateChatModel;
   const error = validate(model, data);
-  console.log(error)
-  console.log(!isEmpty(error))
-  if (!isEmpty(error)) return ResponseHandler.error(res, statusCodes.badRequest, Object.values(error.errors).flatMap(err => err.message));
-  req.data = data;
+  if (!isEmpty(error)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.badRequest,
+      Object.values(error.errors).flatMap(err => err.message)
+    );
+  }
+  req.data = data.users;
   next();
 };
 
-const validateEditChats = async (req, res, next) => '';
-// joiValidateHelper(req, res, next, editArticlesSchema);
+// const validateEditChats = async (req, res, next) => '';
+// // joiValidateHelper(req, res, next, editArticlesSchema);
 
 const checkChatExist = async (req, res, next) => {
-  const { method, url } = req;
+  const { method, url, data } = req;
   const model = url === '/group' ? GroupChatModel : PrivateChatModel;
-  const response = await model.findOne(req.data.chatId);
-  if (!isEmpty(response) && method === 'POST') {
-    return ResponseHandler.error(
-      res,
-      statusCodes.conflict,
-      statusMessages.conflict('Chat Already Exists')
-    );
-  }
-
+  const query = {
+    $or: [
+      { 'users.userId': ObjectId(`${data[0].userId}`) },
+      { 'users.userId': ObjectId(`${data[1].userId}`) },
+    ],
+  };
+  const response = await model.findOne(query);
   if (isEmpty(response) && method !== 'POST') {
     return ResponseHandler.error(
       res,
@@ -45,7 +46,7 @@ const checkChatExist = async (req, res, next) => {
       statusMessages.notFound('Chat')
     );
   }
-  if (method === 'GET') res.data = response;
+  res.data = response;
   next();
 };
 
@@ -70,4 +71,93 @@ const checkAllChats = async (req, res, next) => {
   next();
 };
 
-export { validatePostChats, validateEditChats, checkChatExist, checkAllChats };
+const checkUserHasChats = async (req, res, next) => {
+  const {
+    params: { id },
+  } = req;
+  const groupChats =
+    (await GroupChatModel.find({ 'users.userId': id })) || undefined;
+  const privateChats =
+    (await PrivateChatModel.find({ 'users.userId': id })) || undefined;
+  const data = { privateChats, groupChats };
+  if (isEmpty(data)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.notFound,
+      statusMessages.notFound('Chats')
+    );
+  }
+  res.data = data;
+  next();
+};
+
+const checkChatIdExists = async (req, res, next) => {
+  const {
+    params: { id },
+  } = req;
+  const response = await GroupChatModel.findById(id) || await PrivateChatModel.findById(id);
+  if (isEmpty(response)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.notFound,
+      statusMessages.notFound('Chat')
+    );
+  }
+  res.data = response;
+  next();
+};
+
+const checkUserIsAdmin = async (req, res, next) => {
+  const {
+    body,
+    params: { id },
+  } = req;
+  const response = await GroupChatModel.findOne({
+    admin: body.userId,
+    _id: id,
+  });
+  if (isEmpty(response)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.unauthorized,
+      statusMessages.unauthorized('Only Admins can edit or delete the groups')
+    );
+  }
+  res.data = response;
+  next();
+};
+
+const checkUserInChat = async (req, res, next) => {
+  const {
+    url,
+    body: { userId, chatId },
+    params: { id },
+  } = req;
+  const query = {
+    $and: [
+      { 'users.userId': ObjectId(`${userId}`) },
+      { _id: ObjectId(`${chatId || id}`) },
+    ],
+  };
+  const model = url.includes('/group') ? GroupChatModel : PrivateChatModel;
+  const response = await model.findOne(query);
+  if (isEmpty(response)) {
+    return ResponseHandler.error(
+      res,
+      statusCodes.unauthorized,
+      statusMessages.unauthorized('you must be a member of the chat to perform this operation')
+    );
+  }
+  res.data = response;
+  next();
+};
+
+export {
+  validatePostChats,
+  checkChatExist,
+  checkUserInChat,
+  checkAllChats,
+  checkChatIdExists,
+  checkUserHasChats,
+  checkUserIsAdmin,
+};
