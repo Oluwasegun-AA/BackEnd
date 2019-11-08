@@ -1,8 +1,14 @@
+import dotenv from 'dotenv';
 import express from 'express';
-import expressGraphQL from 'express-graphql';
-import { buildSchema } from 'graphql';
-import dotenv from 'dotenv'
+import serverMiddleWares from '../middlewares/serverMiddlewares';
+// import { connectionMessage } from '../helpers';
 
-const app = express();
+const app: any = express();
 dotenv.config();
-const { PORT } = process.env;
+const { PORT }: any = process.env;
+
+serverMiddleWares(app);
+
+// catchAllError(app);
+
+app.listen(PORT);

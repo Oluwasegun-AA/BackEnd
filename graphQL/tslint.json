@@ -20,7 +20,7 @@
     "max-classes-per-file": true,
     "max-line-length": [
       true,
-      80
+      120
     ],
     "member-ordering": [
       true,
@@ -56,7 +56,6 @@
       true,
       "as-needed"
     ],
-    "ordered-imports": true,
     "quotemark": [
       true,
       "single"
@@ -72,6 +71,7 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "no-conditional-assignment": true
+    "no-conditional-assignment": true,
+    "object-shorthand-properties-first": false
   }
 }
