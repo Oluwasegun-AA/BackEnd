@@ -6,7 +6,13 @@
   "scripts": {
     "start": "yarn build && node dist/server/index.js",
     "test": "echo \"hello world\"",
-    "build": "tsc -b"
+    "build": "rm -rf dist && tsc -b",
+    "createDb": "nodemon --exec babel-node dist/sequelize/models/index.js",
+    "migrate": "export NODE_ENV=development && sequelize db:migrate",
+    "seeder": "./node_modules/.bin/sequelize db:seed:all",
+    "undoMigration": "export NODE_ENV=development && ./node_modules/.bin/sequelize db:migrate:undo:all",
+    "undoSeeder": "./node_modules/.bin/sequelize db:seed:undo:all",
+    "migrateTables": "export NODE_ENV=development && npm run undoMigration && npm run migrate"
   },
   "keywords": [],
   "author": "",
@@ -22,14 +28,18 @@
     "lodash": "4.17.15",
     "morgan": "1.9.1",
     "node": "12.13.0",
+    "pg": "7.12.1",
+    "pg-hstore": "2.3.3",
     "sequelize": "5.21.2",
-    "sequelize-cli": "^5.5.1",
+    "sequelize-cli": "5.5.1",
     "tslint": "5.20.1",
     "tslint-config-airbnb": "5.11.2",
     "typescript": "3.7.2",
     "uuid": "3.3.3"
   },
   "devDependencies": {
+    "@babel/core": "7.7.2",
+    "@babel/node": "7.7.0",
     "@types/bcrypt": "3.0.0",
     "@types/cors": "2.8.6",
     "@types/dotenv": "8.2.0",
@@ -38,6 +48,9 @@
     "@types/lodash": "4.14.145",
     "@types/morgan": "1.7.37",
     "@types/node": "12.12.6",
-    "@types/uuid": "3.4.6"
+    "@types/nodemon": "1.19.0",
+    "@types/sequelize": "4.28.6",
+    "@types/uuid": "3.4.6",
+    "nodemon": "1.19.4"
   }
 }
