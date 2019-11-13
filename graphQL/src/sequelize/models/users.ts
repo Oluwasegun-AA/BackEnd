@@ -1,3 +1,5 @@
+import { Password } from '../../helpers';
+
 const usersModel: any = (db: any, sequelize: any): any => {
   const users = db.define('Users', {
     id: {
@@ -69,9 +71,17 @@ const usersModel: any = (db: any, sequelize: any): any => {
     }
   }, {
     freezeTableName: true,
+    hooks: {
+      beforeCreate: async (data: any) => {
+        data.password = await Password.encrypt(data.password);
+      },
+      beforeUpdate: async (data: any) => {
+        data.password = await Password.encrypt(data.password);
+      }
+    }
   });
   users.associate = function () {
-    // associations can be defined here
+    // associations
   };
   return users;
 };

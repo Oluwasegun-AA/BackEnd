@@ -1,5 +1,3 @@
-import { keys, isNumber } from 'lodash';
-
 const statusCodes: any = {
   success: 200,
   created: 201,
@@ -35,19 +33,18 @@ const statusMessages: any = {
   unavailable: (action: string) => `${action} not available`,
 };
 
-const formatResponse = (message: string): object => {
-  const key: string = message.split(',')[0];
-  console.log(keys(statusCodes).lastIndexOf(key))
-  if ((isNumber(keys(statusCodes).lastIndexOf(key)))) {
-    return {
-      status: statusCodes[key],
-      error: statusMessages[key](message.split(',')[1])
-    }
-  }
-  return {
-    code: 404,
-    error: message
-  }
+const status = {
+  success: 'success',
+  created: 'created',
+  noContent: 'noContent',
+  badRequest: 'badRequest',
+  unauthorized: 'unauthorized',
+  forbidden: 'forbidden',
+  notFound: 'notFound',
+  notAllowed: 'notAllowed',
+  conflict: 'conflict',
+  serverError: 'serverError',
+  unavailable: 'unavailable',
 }
 
-export { statusCodes, statusMessages, formatResponse };
+export { statusCodes, statusMessages, status };

@@ -3,8 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import expressGraphQL from 'express-graphql';
 import schema from '../typeDefs';
-import rootResolver from '../resolvers';
-import { formatResponse } from '../helpers';
+import rootValue from '../resolvers';
+import { ResponseHandler } from '../helpers';
 
 const serverMiddleWares = (app: any) => {
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,11 +13,13 @@ const serverMiddleWares = (app: any) => {
   app.use(logger('common'));
   app.use('/users', expressGraphQL({
     schema,
-    rootValue: rootResolver,
+    rootValue,
+    context: async ({ req, res }: any) => {
+      return { req, res };
+    },
     graphiql: true,
-    formatError: (error: any) => {
-      return formatResponse(error.message);
-    }
+    customFormatErrorFn: (error: any) => ResponseHandler.error(error.message),
+    pretty: true
   }));
 };
 

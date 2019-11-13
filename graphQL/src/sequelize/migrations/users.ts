@@ -6,6 +6,7 @@ module.exports = {
     return queryInterface.createTable('Users', {
       id: {
         type: sequelize.UUID,
+        unique: true,
         primaryKey: true,
         defaultValue: sequelize.UUIDV4,
       },
@@ -34,6 +35,7 @@ module.exports = {
       email: {
         type: sequelize.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           isEmail: {
             msg: 'Email must be a valid'
@@ -53,6 +55,7 @@ module.exports = {
       username: {
         type: sequelize.STRING,
         allowNull: false,
+        unique: true,
         validate: {
           len: {
             args: [4, 30],

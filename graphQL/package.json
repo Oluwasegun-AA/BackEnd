@@ -9,10 +9,10 @@
     "build": "rm -rf dist && tsc -b",
     "createDb": "nodemon --exec babel-node dist/sequelize/models/index.js",
     "migrate": "export NODE_ENV=development && sequelize db:migrate",
-    "seeder": "./node_modules/.bin/sequelize db:seed:all",
-    "undoMigration": "export NODE_ENV=development && ./node_modules/.bin/sequelize db:migrate:undo:all",
-    "undoSeeder": "./node_modules/.bin/sequelize db:seed:undo:all",
-    "migrateTables": "export NODE_ENV=development && npm run undoMigration && npm run migrate"
+    "seeder": "sequelize db:seed:all",
+    "undoMigration": "export NODE_ENV=development && sequelize db:migrate:undo:all",
+    "undoSeeder": "sequelize db:seed:undo:all",
+    "migrateTables": "yarn build && export NODE_ENV=development && npm run undoMigration && npm run migrate && yarn seeder"
   },
   "keywords": [],
   "author": "",

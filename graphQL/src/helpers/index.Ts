@@ -3,7 +3,7 @@ import {
   connectionMessage,
   catchAllError,
 } from './utils';
-import { statusCodes, statusMessages, formatResponse } from './status';
+import { statusCodes, statusMessages, status } from './status';
 import ResponseHandler from './errorHandler';
 import Jwt from './Jwt';
 import Password from './passwordModem';
@@ -19,5 +19,5 @@ export {
   Jwt,
   Password,
   extractValues,
-  formatResponse
+  status
 };

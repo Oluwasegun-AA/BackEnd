@@ -13,7 +13,8 @@ export default {
       username: 'shegs',
       isAdmin: true,
       verified: true,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
     {
       id: uuid(),
@@ -24,7 +25,8 @@ export default {
       username: 'shalon',
       isAdmin: false,
       verified: false,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
     {
       id: uuid(),
@@ -35,7 +37,8 @@ export default {
       username: 'mirriam',
       isAdmin: false,
       verified: false,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
     {
       id: uuid(),
@@ -46,7 +49,8 @@ export default {
       username: 'theo',
       isAdmin: false,
       verified: false,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
     {
       id: uuid(),
@@ -57,7 +61,8 @@ export default {
       username: 'eric',
       isAdmin: false,
       verified: false,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
     {
       id: uuid(),
@@ -68,7 +73,8 @@ export default {
       username: 'kasule',
       isAdmin: false,
       verified: false,
-      createdAt: new Date(Date.now())
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now())
     },
   ]),
   down: (queryInterface: any) => queryInterface.bulkDelete('Users', null, {
