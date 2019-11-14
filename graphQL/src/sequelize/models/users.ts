@@ -5,6 +5,7 @@ const usersModel: any = (db: any, sequelize: any): any => {
     id: {
       type: sequelize.UUID,
       primaryKey: true,
+      unique: true,
       defaultValue: sequelize.UUIDV4,
     },
     firstName: {
@@ -32,6 +33,7 @@ const usersModel: any = (db: any, sequelize: any): any => {
     email: {
       type: sequelize.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         isEmail: {
           args: true,
@@ -52,6 +54,7 @@ const usersModel: any = (db: any, sequelize: any): any => {
     username: {
       type: sequelize.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         len: {
           args: [4, 30],
@@ -65,6 +68,11 @@ const usersModel: any = (db: any, sequelize: any): any => {
       defaultValue: false
     },
     verified: {
+      type: sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    isDeleted: {
       type: sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false

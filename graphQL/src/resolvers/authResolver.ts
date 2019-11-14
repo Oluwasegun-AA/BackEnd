@@ -18,14 +18,7 @@ interface ISignupdata {
   }
 }
 
-console.log('here in main file')
-const userHandler = {
-  auth: (args: ILogindata, _context: any) => {
-    return args;
-  },
-  users: (args: ILogindata, _context: any) => {
-    return args.data;
-  },
+const authHandler: any = {
   login: async ({ data }: ILogindata): Promise<any> => {
     const response = await Auth.login(data);
     return response;
@@ -36,4 +29,4 @@ const userHandler = {
   }
 }
 
-export default userHandler;
+export default authHandler;

@@ -1,3 +1,4 @@
-import userHandler from './authResolver';
+import authHandler from './authResolver';
+import userHandler from './usersResolver';
 
-export default userHandler;
+export default [authHandler, userHandler];
