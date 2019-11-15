@@ -5,7 +5,10 @@ const usersModel: any = (db: any, sequelize: any): any => {
     id: {
       type: sequelize.UUID,
       primaryKey: true,
-      unique: true,
+      unique: {
+        name: 'id',
+        msg: 'A user with this ID already exist in the database'
+      },
       defaultValue: sequelize.UUIDV4,
     },
     firstName: {
@@ -33,7 +36,10 @@ const usersModel: any = (db: any, sequelize: any): any => {
     email: {
       type: sequelize.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        name: 'email',
+        msg: 'A users with this email already exist in the database'
+      },
       validate: {
         isEmail: {
           args: true,
@@ -54,7 +60,10 @@ const usersModel: any = (db: any, sequelize: any): any => {
     username: {
       type: sequelize.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        name: 'username',
+        msg: 'A user with this username already exist in the database'
+      },
       validate: {
         len: {
           args: [4, 30],

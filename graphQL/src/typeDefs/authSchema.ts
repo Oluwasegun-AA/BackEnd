@@ -22,8 +22,6 @@ type Token {
 }
 
 type AuthResponse {
-  status: Int
-  message: String
   data: Token
 }
 

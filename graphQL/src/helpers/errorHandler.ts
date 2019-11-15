@@ -20,7 +20,7 @@ class ResponseHandler {
       }
     }
     return {
-      code: 400,
+      status: 'error',
       error: message
     }
   }

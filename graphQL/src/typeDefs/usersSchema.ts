@@ -1,6 +1,6 @@
 const authType: string = `
 type User {
-  id: ID!
+  id: String!
   email: String!
   username: String!
   firstName: String!
@@ -9,39 +9,24 @@ type User {
   verified: Boolean!
   createdAt: String!
   updatedAt: String!
-}
-
-type Response {
-  message: String
-  data: {
-  id: ID!
-  email: String!
-  username: String!
-  firstName: String!
-  lastName: String!
-  isAdmin: Boolean!
-  verified: Boolean!
-  createdAt: String!
-  updatedAt: String!
-  }
 }
 
 input userData {
+  id: String
   email: String
   username: String
-  password: String
   firstName: String
   lastName: String
   isAdmin: Boolean
   verified: Boolean
 }
 
-type Query {
+ type Query {
   getUser(data: userData): User
-  getUsers(): [User!]
+  getAllUser: [User]!
 }
 
-type Mutation {
+ type Mutation {
   updateUser(data: userData): User
   deleteUser(data: userData): User
   postUser(data: userData): User

@@ -1,4 +1,4 @@
-import User from '../controllers/usersController';
+import Users from '../controllers/usersController';
 import Auth from '../controllers/authController';
 
 interface IUser {
@@ -41,19 +41,19 @@ interface ISingleUser {
 
 const userHandler: any = {
   getUser: async ({ data }: ISingleUser): Promise<IResponseData> => {
-    const response: Promise<any> = await User.getUser(data);
+    const response: any = await Users.getUser(data);
     return response;
   },
   getAllUser: async (): Promise<IResponseData[]> => {
-    const response: Promise<any> = await User.getAllUsers();
+    const response: Promise<any> = await Users.getAllUsers();
     return response;
   },
   updateUser: async ({ data }: ISingleUser): Promise<IResponseData> => {
-    const response: Promise<any> = await User.updateUser(data);
+    const response: Promise<any> = await Users.updateUser(data);
     return response;
   },
   deleteUser: async ({ data }: ISingleUser): Promise<IResponseData> => {
-    const response: Promise<any> = await User.deleteUser(data);
+    const response: Promise<any> = await Users.deleteUser(data);
     return response;
   },
   postUser: async ({ data }: IUserData): Promise<IResponseData> => {
@@ -61,11 +61,11 @@ const userHandler: any = {
     return response;
   },
   makeAdmin: async ({ data }: ISingleUser): Promise<IResponseData> => {
-    const response: Promise<any> = await User.makeAdmin(data);
+    const response: Promise<any> = await Users.makeAdmin(data);
     return response;
   },
   verifyUser: async ({ data }: ISingleUser): Promise<IResponseData> => {
-    const response: Promise<any> = await User.verifyUser(data);
+    const response: Promise<any> = await Users.verifyUser(data);
     return response;
   }
 }

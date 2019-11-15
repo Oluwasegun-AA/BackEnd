@@ -1,7 +1,11 @@
 
+// ///<reference path='../types/qql-merge.d.ts'/>
+// import {mergeStrings} from 'gql-merge';
 import { buildSchema } from 'graphql';
-import authType from './authSchema';
+// import authType from './authSchema';
+import userType from './usersSchema';
 
-const schema: any = buildSchema(authType);
+// const allTypes: string = mergeStrings([authType, userType]);
+const schema: any = buildSchema(userType);
 
 export default schema;
