@@ -21,18 +21,9 @@ type Token {
   token: String
 }
 
-type AuthResponse {
-  data: Token
-}
-
-type Query {
-  auth(data: LoginData): test
-  users(data: LoginData): test
-}
-
 type Mutation {
-  login(data: LoginData): AuthResponse
-  signup(data: SignupData): AuthResponse
+  login(data: LoginData): Token
+  signup(data: SignupData): Token
 }
 `;
 

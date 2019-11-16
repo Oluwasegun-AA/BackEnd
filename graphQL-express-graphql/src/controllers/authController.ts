@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick, omit } from 'lodash';
 import db from '../sequelize/models';
 import {
   Jwt,
@@ -12,11 +12,12 @@ const { encrypt } = Jwt;
 
 class Auth {
   static async login(data: any) {
-    const user = await Users.findOne(data);
-    const validUser = Password.decrypt(data.password, user.password);
+    const user = await Users.findOne({ where: omit(data, ['password']) });
+    const { dataValues }: any = user;
+    const validUser = Password.decrypt(data.password, dataValues.password);
     if (validUser) {
       return {
-        token: encrypt(pick(data, ['id', 'email', 'role'])),
+        token: encrypt(pick(dataValues, ['id', 'isAdmin', 'verified'])),
       }
     }
     throw new Error(`${status.unauthorized}, Incorrect email or password`);
@@ -26,7 +27,7 @@ class Auth {
     const userCreated = await Users.create(data);
     if (userCreated) {
       return {
-        token: encrypt(pick(data, ['id', 'email'])),
+        token: encrypt(pick(data, ['id', 'isAdmin', 'verified'])),
       };
     }
     throw new Error(`${status.serverError}, User Account not created`);

@@ -6,7 +6,7 @@ dotenv.config();
 const { SECRETE }: any = process.env;
 
 class Jwt {
-  static encrypt(data: { email: string }): string {
+  static encrypt(data: { id: string, isAdmin: boolean, verified: boolean  }): string {
     return jwt.sign(data, SECRETE, {
       expiresIn: 60 * 60, // expires in 1 hour
     });
