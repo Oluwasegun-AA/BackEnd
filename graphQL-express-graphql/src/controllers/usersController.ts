@@ -6,8 +6,15 @@ import {
 
 const { Users } = db;
 
+import {
+  ISingleUserDataValues,
+  ISingleUser,
+  IGetUser,
+  IUpdateUser
+} from '../types/typeDeclarations.interface';
+
 class UsersController {
-  static async getAllUsers(): Promise<any> {
+  static async getAllUsers(): Promise<ISingleUser> {
     const users: any = await Users.findAll({
       where: {
         isDeleted: false
@@ -16,12 +23,11 @@ class UsersController {
     return users;
   }
 
-  static async getUser(data: any): Promise<any> {
-    const user: any = await Users.findOne({ where: { ...data } });
+  static async getUser(data: IGetUser): Promise<any> {
+    const user: ISingleUserDataValues = await Users.findOne({ where: { ...data } });
     return omit(user.dataValues, ['password']);
   }
-  // omit(user.dataValues, ['password']),
-  static async updateUser(data: any): Promise<any> {
+  static async updateUser(data: IUpdateUser): Promise<any> {
     const response = await Users.update(omit(data, ['verified', 'isAdmin']), {
       where: {
         id: data.id
@@ -34,23 +40,19 @@ class UsersController {
     throw new Error(`${status.serverError}, Please try again`);
   }
 
-  static async deleteUser(data: any): Promise<any> {
+  static async deleteUser(data: IGetUser): Promise<any> {
     const response = await Users.update({ isDeleted: true }, {
-      where: {
-        id: data.id
-      },
+      where: data,
       returning: true,
     });
     return omit(response[1][0], ['password']);
   }
 
-  static async makeAdmin(data: any): Promise<any> {
+  static async makeAdmin(data: IGetUser): Promise<any> {
     const user: any = await Users.findOne({ where: data });
     if (user) {
       const response = await Users.update({ isAdmin: true }, {
-        where: {
-          id: data.id
-        },
+        where: data,
         returning: true,
       });
       return omit(response[1][0], ['password']);

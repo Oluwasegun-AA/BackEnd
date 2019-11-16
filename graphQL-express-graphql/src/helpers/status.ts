@@ -1,4 +1,6 @@
-const statusCodes: any = {
+import {IStatusCodes, IStatusMessages, IMethod} from '../types/typeDeclarations.interface';
+
+const statusCodes: IStatusCodes | any= {
   success: 200,
   created: 201,
   noContent: 204,
@@ -12,12 +14,7 @@ const statusCodes: any = {
   unavailable: 503,
 };
 
-interface IMethod {
-  originalUrl: string;
-  method: string;
-}
-
-const statusMessages: any = {
+const statusMessages: IStatusMessages | any = {
   home: 'Welcome to the web API version 1, you may visit the documentation at /api/v1/docs',
   routeNotFound: ({ originalUrl, method }: IMethod) => `Endpoint ${method} ${originalUrl} does not exist. Please, read the docs via api/v1/docs`,
   success: (action: string) => `${action} successfully`,

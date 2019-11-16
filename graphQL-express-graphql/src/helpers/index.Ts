@@ -7,7 +7,6 @@ import { statusCodes, statusMessages, status } from './status';
 import ResponseHandler from './errorHandler';
 import Jwt from './Jwt';
 import Password from './passwordModem';
-import extractValues from './extractValues';
 
 export {
   log,
@@ -18,6 +17,5 @@ export {
   ResponseHandler,
   Jwt,
   Password,
-  extractValues,
   status
 };

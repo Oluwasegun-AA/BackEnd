@@ -6,7 +6,7 @@ const Sequelize: any = require('sequelize');
 import { log } from '../../helpers';
 import databaseConfig from '../config/config.json';
 
-dotenv.config()
+dotenv.config();
 
 let configEnv;
 if (process.env.NODE_ENV === 'production') {
@@ -49,7 +49,7 @@ fs
     db[model.name] = model;
   });
 
-Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach((modelName: any) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
