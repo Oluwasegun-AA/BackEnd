@@ -1,18 +1,11 @@
 import { keys, isNumber } from 'lodash';
 import { statusCodes, statusMessages } from '../helpers';
 
-class ResponseHandler {
-  static success(code: number, message: string, data: any): any {
-    return {
-      status: code,
-      message,
-      data
-    };
-  }
 
+class ResponseHandler {
   static error = (message: string): object => {
     const key: string = message.split(',')[0];
-    const index: any = keys(statusCodes).lastIndexOf(key);
+    const index: number = keys(statusCodes).lastIndexOf(key);
     if ((isNumber(index) && index !== -1)) {
       return {
         status: statusCodes[key],
@@ -25,5 +18,4 @@ class ResponseHandler {
     }
   }
 }
-
 export default ResponseHandler;

@@ -1,29 +1,12 @@
 import Auth from '../controllers/authController';
-
-interface ILogindata {
-  data: {
-    email?: string;
-    username?: string;
-    password: string;
-  }
-}
-
-interface ISignupdata {
-  data: {
-    email: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-  }
-}
+import {IResolverLoginInput, IResolverSignupInput, IResolverAuthOutput} from '../types/typeDeclarations.interface';
 
 const authHandler: any = {
-  login: async ({ data }: ILogindata): Promise<any> => {
+  login: async ({ data }: IResolverLoginInput): Promise<IResolverAuthOutput> => {
     const response = await Auth.login(data);
     return response;
   },
-  signup: async ({ data }: ISignupdata): Promise<any> => {
+  signup: async ({ data }: IResolverSignupInput): Promise<IResolverAuthOutput> => {
     const response = await Auth.signup(data);
     return response;
   }
