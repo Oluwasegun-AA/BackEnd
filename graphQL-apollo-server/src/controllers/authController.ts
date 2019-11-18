@@ -7,7 +7,6 @@ import {
 } from '../helpers';
 import {
   ILoginData,
-  ISignupData,
   ISingleUserDataValues,
   ISingleUser
 } from '../types/typeDeclarations.interface';
@@ -30,7 +29,7 @@ class Auth {
     throw new Error(`${status.unauthorized}, Incorrect email or password`);
   }
 
-  static async signup(data: ISignupData) {
+  static async signup(data: any) {
     const userCreated: ISingleUser = await Users.create(data);
     if (userCreated) {
       return {

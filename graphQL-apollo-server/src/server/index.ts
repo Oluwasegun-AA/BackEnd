@@ -13,7 +13,10 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req, res }: any) => { return { req, res }; },
+  context: async ({ req }: any) => {
+    const { body: { query }, headers: { token } } = req;
+    return { query, token };
+  },
   formatError: (err: any) => ResponseHandler.error(err.message)
 });
 

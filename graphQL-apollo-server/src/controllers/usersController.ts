@@ -24,7 +24,7 @@ class UsersController {
   }
 
   static async getUser(data: IGetUser): Promise<any> {
-    const user: ISingleUserDataValues = await Users.findOne({ where: { ...data } });
+    const user: ISingleUserDataValues = await Users.findOne({ where: data });
     return omit(user.dataValues, ['password']);
   }
   static async updateUser(data: IUpdateUser): Promise<any> {
