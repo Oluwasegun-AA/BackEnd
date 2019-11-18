@@ -9,9 +9,9 @@ import {
 import {
   checkUserExist,
   checkUserInToken,
-  checkAdminInToken
+  checkAdminInToken,
+  checkUserOwnsAccount
 } from '../middlewares/index';
-
 
 const userHandler: any = {
   Query: {
@@ -21,10 +21,12 @@ const userHandler: any = {
       { query, token }: any): Promise<IMutationResponseData> => {
       await checkUserInToken(token);
       await checkUserExist(data, query);
+      await checkUserOwnsAccount(data, token);
       const response: any = await Users.getUser(omit(data, ['token']));
       return response;
     },
-    getAllUser: async (): Promise<IMutationResponseData[]> => {
+    getAllUser: async (_parent: any, _data: {}, { token }: any): Promise<IMutationResponseData[]> => {
+      await checkAdminInToken(token);
       const response: any = await Users.getAllUsers();
       return response;
     },
@@ -36,6 +38,7 @@ const userHandler: any = {
       { query, token }: any): Promise<IMutationResponseData> => {
       await checkUserInToken(token);
       await checkUserExist(data, query);
+      await checkUserOwnsAccount(data, token);
       const response: Promise<any> = await Users.updateUser(omit(data, ['token']));
       return response;
     },
@@ -45,6 +48,7 @@ const userHandler: any = {
       { query, token }: any): Promise<IMutationResponseData> => {
       await checkAdminInToken(token);
       await checkUserExist(data, query);
+      await checkUserOwnsAccount(data, token);
       const response: Promise<any> = await Users.deleteUser(omit(data, ['token']));
       return response;
     },
