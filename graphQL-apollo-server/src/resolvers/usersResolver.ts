@@ -1,11 +1,27 @@
+import { omit } from 'lodash';
 import Users from '../controllers/usersController';
 import Auth from '../controllers/authController';
-import { IPostMutationData, IMutationSingleUser, IMutationResponseData } from '../types/typeDeclarations.interface';
+import {
+  IPostMutationData,
+  IMutationSingleUser,
+  IMutationResponseData
+} from '../types/typeDeclarations.interface';
+import {
+  checkUserExist,
+  checkUserInToken,
+  checkAdminInToken
+} from '../middlewares/index';
+
 
 const userHandler: any = {
   Query: {
-    getUser: async (_parent: any, {data}: IMutationSingleUser): Promise<IMutationResponseData> => {
-      const response: any = await Users.getUser(data);
+    getUser: async (
+      _parent: any,
+      { data }: IMutationSingleUser,
+      { query, token }: any): Promise<IMutationResponseData> => {
+      await checkUserInToken(token);
+      await checkUserExist(data, query);
+      const response: any = await Users.getUser(omit(data, ['token']));
       return response;
     },
     getAllUser: async (): Promise<IMutationResponseData[]> => {
@@ -14,24 +30,48 @@ const userHandler: any = {
     },
   },
   Mutation: {
-    updateUser: async (_parent: any, { data }: IMutationSingleUser): Promise<IMutationResponseData> => {
-      const response: Promise<any> = await Users.updateUser(data);
+    updateUser: async (
+      _parent: any,
+      { data }: IMutationSingleUser,
+      { query, token }: any): Promise<IMutationResponseData> => {
+      await checkUserInToken(token);
+      await checkUserExist(data, query);
+      const response: Promise<any> = await Users.updateUser(omit(data, ['token']));
       return response;
     },
-    deleteUser: async (_parent: any, { data }: IMutationSingleUser): Promise<IMutationResponseData> => {
-      const response: Promise<any> = await Users.deleteUser(data);
+    deleteUser: async (
+      _parent: any,
+      { data }: IMutationSingleUser,
+      { query, token }: any): Promise<IMutationResponseData> => {
+      await checkAdminInToken(token);
+      await checkUserExist(data, query);
+      const response: Promise<any> = await Users.deleteUser(omit(data, ['token']));
       return response;
     },
-    postUser: async (_parent: any, { data }: IPostMutationData): Promise<IMutationResponseData> => {
-      const response: Promise<any> = Auth.signup(data);
+    postUser: async (
+      _parent: any,
+      { data }: IPostMutationData,
+      { query, token }: any): Promise<IMutationResponseData> => {
+      await checkAdminInToken(token);
+      await checkUserExist(data, query);
+      const response: any = await Auth.signup(omit(data, ['token']));
       return response;
     },
-    makeAdmin: async (_parent: any, { data }: IMutationSingleUser): Promise<IMutationResponseData> => {
-      const response: Promise<any> = await Users.makeAdmin(data);
+    makeAdmin: async (
+      _parent: any,
+      { data }: IMutationSingleUser,
+      { query, token }: any): Promise<IMutationResponseData> => {
+      await checkAdminInToken(token);
+      await checkUserExist(data, query);
+      const response: Promise<any> = await Users.makeAdmin(omit(data, ['token']));
       return response;
     },
-    verifyUser: async (_parent: any, { data }: IMutationSingleUser): Promise<IMutationResponseData> => {
-      const response: Promise<any> = await Users.verifyUser(data);
+    verifyUser: async (
+      _parent: any,
+      { data }: IMutationSingleUser,
+      { query }: any): Promise<IMutationResponseData> => {
+      await checkUserExist(data, query);
+      const response: Promise<any> = await Users.verifyUser(omit(data, ['token']));
       return response;
     }
   }

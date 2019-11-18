@@ -13,6 +13,17 @@ type User {
   updatedAt: String!
 }
 
+input tokenedUser {
+  token: String
+  id: String
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+  isAdmin: Boolean
+  verified: Boolean
+}
+
 input userData {
   id: String
   email: String
@@ -24,16 +35,16 @@ input userData {
 }
 
  type Query {
-  getUser(data: userData): User
+  getUser(data: tokenedUser): User
   getAllUser: [User]!
 }
 
  extend type Mutation {
-  updateUser(data: userData): User
-  deleteUser(data: userData): User
-  postUser(data: userData): User
-  makeAdmin(data: userData): User
-  verifyUser(data: userData): User
+  updateUser(data: tokenedUser): User
+  deleteUser(data: tokenedUser): User
+  postUser(data: tokenedUser): User
+  makeAdmin(data: tokenedUser): User
+  verifyUser(data: tokenedUser): User
 }
 `;
 

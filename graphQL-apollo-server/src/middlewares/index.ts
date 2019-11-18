@@ -1,13 +1,11 @@
-// import {
-//   checkUserExist,
-//   checkUserInParamExist,
-//   checkAdminInToken,
-//   checkUserInToken,
-// } from './users';
+import {
+  checkUserExist,
+  checkUserInToken,
+  checkAdminInToken,
+} from './users';
 
-// export {
-//   checkUserExist,
-//   checkUserInParamExist,
-//   checkUserInToken,
-//   checkAdminInToken,
-// };
+export {
+  checkUserExist,
+  checkUserInToken,
+  checkAdminInToken,
+};
