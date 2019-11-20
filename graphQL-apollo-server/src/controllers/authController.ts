@@ -3,7 +3,8 @@ import db from '../sequelize/models';
 import {
   Jwt,
   Password,
-  status
+  status,
+  Mail
 } from '../helpers';
 import {
   ILoginData,
@@ -32,8 +33,10 @@ class Auth {
   static async signup(data: any) {
     const userCreated: ISingleUser = await Users.create(data);
     if (userCreated) {
+      const token: string = encrypt(pick(userCreated, ['id', 'isAdmin', 'verified']));
+      await Mail.signUpSuccess(token, userCreated);
       return {
-        token: encrypt(pick(userCreated, ['id', 'isAdmin', 'verified'])),
+        token
       };
     }
     throw new Error(`${status.serverError}, User Account not created`);
