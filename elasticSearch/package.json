@@ -4,19 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && nodemon dist/server/index.js",
-    "serve": "concurrently \"yarn start-elastic\" \"yarn start-kibana\"",
-    "start-kibana": "/Users/oluwasegunadepoju/Downloads/kibana-7.4.2-darwin-x86_64/bin/kibana",
-    "start-elastic": "/Users/oluwasegunadepoju/Downloads/elasticsearch-7.4.2/bin/elasticsearch",
+    "start": "yarn build && yarn serve",
+    "serve": "node dist/src/server/index.js",
     "overwrite_read_only": "node dist/config/index.js",
     "test": "echo \"hello world\"",
-    "build": "rm -rf dist && tsc -b",
-    "createDb": "nodemon --exec babel-node dist/sequelize/models/index.js",
-    "migrate": "export NODE_ENV=development && sequelize db:migrate",
-    "seeder": "sequelize db:seed:all",
-    "undoMigration": "export NODE_ENV=development && sequelize db:migrate:undo:all",
-    "undoSeeder": "sequelize db:seed:undo:all",
-    "migrateTables": "yarn build && export NODE_ENV=development && npm run undoMigration && npm run migrate && yarn seeder"
+    "build": "rm -rf dist && tsc -b"
   },
   "keywords": [],
   "author": "",
