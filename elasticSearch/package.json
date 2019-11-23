@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
-    "@babel/node": "7.7.0",
     "@types/bcrypt": "3.0.0",
     "@types/dotenv": "8.2.0",
     "@types/jsonwebtoken": "8.3.5",

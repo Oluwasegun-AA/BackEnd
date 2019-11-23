@@ -56,10 +56,6 @@
       true,
       "as-needed"
     ],
-    "quotemark": [
-      true,
-      "single"
-    ],
     "trailing-comma": false,
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
@@ -72,6 +68,7 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-conditional-assignment": true,
-    "object-shorthand-properties-first": false
+    "object-shorthand-properties-first": false,
+    "quotemark": [true, "single", "avoid-escape"]
   }
 }
