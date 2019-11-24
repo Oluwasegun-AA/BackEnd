@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn build && yarn serve",
+    "seed": "node dist/src/seeder/index.js",
     "serve": "node dist/src/server/index.js",
     "overwrite_read_only": "node dist/config/index.js",
     "test": "echo \"hello world\"",
