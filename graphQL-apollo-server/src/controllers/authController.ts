@@ -16,7 +16,6 @@ const { Users } = db;
 
 const { encrypt } = Jwt;
 
-
 class Auth {
   static async login(data: ILoginData) {
     const user: any = await Users.findOne({ where: omit(data, ['password']) });
