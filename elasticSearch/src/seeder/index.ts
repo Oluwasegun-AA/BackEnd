@@ -1,8 +1,7 @@
 import db from '../common/requestController';
 
 const seed: any = async (): Promise<any> => {
-  const data: any = await db.PUT('/school');
-  console.log('ddddddd', data)
+  await db.PUT('/school');
   await db.PUT('/school/_doc/1', {
     id: '982a2372-f228-44c2-816a-3ef022e689fb',
     firstName: 'Adepoju',
