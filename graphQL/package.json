@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && node dist/server/index.js",
+    "start": "yarn build && nodemon dist/server/index.js",
     "test": "echo \"hello world\"",
     "build": "rm -rf dist && tsc -b",
     "createDb": "nodemon --exec babel-node dist/sequelize/models/index.js",

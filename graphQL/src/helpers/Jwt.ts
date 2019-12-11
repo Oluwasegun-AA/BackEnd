@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import ResponseHandler from './ResponseHandler';
+import ResponseHandler from './errorHandler';
 import { statusCodes, statusMessages } from './status';
 
 dotenv.config();
