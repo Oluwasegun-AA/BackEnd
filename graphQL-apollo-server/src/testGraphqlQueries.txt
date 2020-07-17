@@ -1,0 +1,34 @@
+
+# Write your query or mutation here
+# user signup mutation
+# mutation{
+#    signup(data: {
+#   username: "shegsteham1",
+#   password: "shegsteham1",
+#   email: "shegsteham1@gmail.com",
+#   firstName: "adepoju1",
+#   lastName: "segu1n",
+#   }) {
+#     token
+#   }
+# }
+
+# query to get all users after obtaining the admin token
+query{
+  getAllUser{
+    email
+    username
+    firstName
+    lastName
+  }
+}
+
+# admin login mutation
+# mutation{
+#   login(data: {
+#     email: "oluwasegunadepoju@gmail.com",
+#     password: "password"
+#   }){
+#     token
+#   }
+# }
