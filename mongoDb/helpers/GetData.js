@@ -8,19 +8,22 @@ class GetData {
   static signup(req) {
     return pick(req.body, [
       'email',
-      'password',
       'username',
-      'firstName',
-      'lastName',
+      'password',
     ]);
   }
 
-  static chat(req) {
-    return pick(req.body, ['users', 'groupName', 'admin']);
-  }
-
   static message(req) {
-    return pick(req.body, ['chatId', 'userId', 'message']);
+    return pick(
+      req.body,
+      [
+        'message',
+        'userId',
+        'roomID',
+        'IP',
+        'admin',
+        'timestamp'
+      ]);
   }
 }
 
